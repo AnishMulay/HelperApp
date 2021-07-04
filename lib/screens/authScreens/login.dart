@@ -78,14 +78,24 @@ class _LoginPageState extends State<LoginPage> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
               },
-              child: Text("Don't have an account ?"),
+              child: Text(
+                  "Don't have an account ?",
+                style: TextStyle(
+                  fontSize: 17
+                ),
+              ),
             ),
             const SizedBox(height: 20,),
             GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPage()));
               },
-              child: Text('Forgot Password ?'),
+              child: Text(
+                  'Forgot Password ?',
+                style: TextStyle(
+                  fontSize: 17
+                ),
+              ),
             ),
           ],
         ),

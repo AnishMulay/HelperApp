@@ -57,11 +57,11 @@ class AuthClass {
   }
 
   Future<String> addUser({String displayName, String phoneNumber, bool isStudent}) async {
+    var firebaseUser = await auth.currentUser;
     try {
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
-      String uid = auth.currentUser.uid.toString();
-      users.add({
-        'uid': uid,
+      users.doc(firebaseUser.uid)
+          .set({
         'displayName': displayName,
         'phoneNumber': phoneNumber,
         'isStudent': isStudent
@@ -72,5 +72,22 @@ class AuthClass {
     }
   }
 
-
+  Future<String> addTask({String examTitle, String address, bool isOnline}) async {
+    String userId = auth.currentUser.uid;
+    try{
+      CollectionReference tasks = FirebaseFirestore.instance.collection('Tasks');
+      tasks.add({
+        'studentUserId': userId,
+        'examTitle': examTitle,
+        'address': address,
+        'isOnline': isOnline,
+        'isSubscribed': false,
+        'volunteer': 'None'
+      }
+      );
+      return 'Task created';
+    } catch(e) {
+      return 'Error';
+    }
+  }
 }

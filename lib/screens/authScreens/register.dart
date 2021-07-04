@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Are you a student', style: TextStyle(fontSize: 20),),
-                  SizedBox(width: 20,),
+                  SizedBox(width: 17,),
                   Switch(
                     value: isStudent,
                     onChanged: (value) {
@@ -120,7 +120,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                 },
-                child: Text('Already have an account ?'),
+                child: Text(
+                    'Already have an account ?',
+                  style: TextStyle(
+                    fontSize: 17
+                  ),
+                ),
               ),
               const SizedBox(height: 20,),
             ],
