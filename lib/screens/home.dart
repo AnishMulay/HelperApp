@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/taskScreens/addTask.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
+import 'package:helper/screens/taskScreens/subscribed.dart';
+import 'package:helper/screens/taskScreens/volunteered.dart';
 import 'authScreens/login.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -35,6 +37,29 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
           }, icon: Icon(Icons.exit_to_app))
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                },
+                icon: Icon(Icons.home)),
+            IconButton(
+                onPressed: () {
+                  if(isStudent == true){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Subscribed()));
+                  }
+                  else{
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Volunteered()));
+                  }
+                },
+                icon: Icon(Icons.beenhere_outlined))
+          ],
+        ),
       ),
       body: Center(
         child: FutureBuilder(
@@ -82,9 +107,8 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomCenter,
               child: RawMaterialButton(
                 elevation: 2.0,
-                fillColor: Colors.blue,
                 shape: CircleBorder(),
-                child: Icon(Icons.add, size: 30,),
+                child: Icon(Icons.add_circle, size: 40,),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => AddTaskPage()));
                 },

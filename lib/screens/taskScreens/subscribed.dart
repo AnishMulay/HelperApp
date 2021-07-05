@@ -2,23 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
-import 'package:helper/screens/taskScreens/subscribed.dart';
+import 'package:helper/screens/taskScreens/volunteered.dart';
 
 import '../home.dart';
 
-class Volunteered extends StatefulWidget {
-  const Volunteered({Key? key}) : super(key: key);
+class Subscribed extends StatefulWidget {
+  const Subscribed({Key? key}) : super(key: key);
 
   @override
-  _VolunteeredState createState() => _VolunteeredState();
+  _SubscribedState createState() => _SubscribedState();
 }
 
-class _VolunteeredState extends State<Volunteered> {
+class _SubscribedState extends State<Subscribed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteered tasks'),
+        title: Text('Subscribed Tasks'),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -46,7 +46,7 @@ class _VolunteeredState extends State<Volunteered> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Tasks')
             .where('isSubscribed', isEqualTo: true)
-            .where('volunteer', isEqualTo: FirebaseAuth.instance.currentUser.uid).snapshots(),
+            .where('studentUserId', isEqualTo: FirebaseAuth.instance.currentUser.uid).snapshots(),
         builder: (context, AsyncSnapshot snapshot){
           return snapshot.hasData ?
               ListView.builder(
@@ -55,11 +55,7 @@ class _VolunteeredState extends State<Volunteered> {
                     DocumentSnapshot ds = snapshot.data.docs[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SubscribeTaskScreen(userId: FirebaseAuth.instance.currentUser.uid, taskId: ds.id,))
-                        );
+                        print('Card tapped');
                       },
                       child: Card(
                         child: Padding(
