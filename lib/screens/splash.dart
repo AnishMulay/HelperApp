@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/authScreens/register.dart';
-import 'package:helper/screens/home.dart';
+import 'package:helper/screens/studentHome.dart';
+import 'package:helper/screens/volunteerHome.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+String email = '';
+String phoneNumber = '';
+bool isStudent = false;
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -13,11 +20,15 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
 
   FirebaseAuth auth = FirebaseAuth.instance;
+  @override
+  void initState() {
+    getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 0), () {
       if (auth.currentUser == null) {
         Navigator.pushAndRemoveUntil(
             context,
@@ -25,16 +36,34 @@ class _SplashState extends State<Splash> {
       } else {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+            MaterialPageRoute(builder: (context) => FutureBuilder(
+                future: getUserData(),
+                builder: (context, snapshot) {
+                  if(snapshot.connectionState != ConnectionState.done){
+                    return Container();
+                  }else{
+                    return isStudent == true ?
+                    StudentHomePage()
+                        : VolunteerHomePage();
+                  }
+                })), (route) => false);
       }
     });
 
-    return Scaffold(
-      body: Center(
-        child: FlutterLogo(
-          size: 80,
-        ),
-      ),
-    );
+    return Container();
+  }
+}
+
+getUserData() async {
+  final firebaseUser = auth.currentUser;
+  if(firebaseUser != null){
+    await FirebaseFirestore.instance.collection('Users')
+        .doc(firebaseUser.uid)
+        .get()
+        .then((ds) {
+      email = ds.data()['displayName'];
+      phoneNumber = ds.data()['phoneNumber'];
+      isStudent = ds.data()['isStudent'];
+    });
   }
 }

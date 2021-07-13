@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/register.dart';
 import 'package:helper/screens/authScreens/reset.dart';
-
-import '../home.dart';
+import 'package:helper/screens/splash.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -60,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                       });
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+                          MaterialPageRoute(builder: (context) => Splash()), (route) => false);
                     }else{
                       setState(() {
                         isLoading = false;

@@ -40,11 +40,26 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 30,),
-                      Text(widget.taskId),
+                      Row(
+                        children: [
+                          Text('Task ID:  '),
+                          Text(widget.taskId),
+                        ],
+                      ),
                       SizedBox(height: 30,),
-                      Text(examTitle),
+                      Row(
+                        children: [
+                          Text('Exam Title:  '),
+                          Text(examTitle),
+                        ],
+                      ),
                       SizedBox(height: 30,),
-                      Text(address),
+                      Row(
+                        children: [
+                          Text('Exam Address:  '),
+                          Text(address),
+                        ],
+                      ),
                       SizedBox(height: 30,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

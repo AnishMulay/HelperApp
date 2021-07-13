@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
-import 'package:helper/screens/home.dart';
-
+import 'package:helper/screens/splash.dart';
 import 'login.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -91,6 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ).then((value) {
                       if(value == 'Account created'){
                         AuthClass().addUser(
+                          email: _email.text.trim(),
                           displayName: _displayName.text.trim(),
                           phoneNumber: _phoneNumber.text.trim(),
                           isStudent: isStudent
@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               isLoading = false;
                               Navigator.pushAndRemoveUntil(
                                   context,
-                                  MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+                                  MaterialPageRoute(builder: (context) => Splash()), (route) => false);
                             });
                           }
                         });

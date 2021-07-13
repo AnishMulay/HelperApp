@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/screens/studentHome.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
+import 'package:helper/screens/taskScreens/taskDetails.dart';
 import 'package:helper/screens/taskScreens/volunteered.dart';
-
-import '../home.dart';
 
 class Subscribed extends StatefulWidget {
   const Subscribed({Key? key}) : super(key: key);
@@ -27,17 +27,12 @@ class _SubscribedState extends State<Subscribed> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
                 },
                 icon: Icon(Icons.home)),
             IconButton(
                 onPressed: () {
-                  if(isStudent == true){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Subscribed()));
-                  }
-                  else{
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Volunteered()));
-                  }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Subscribed()));
                 },
                 icon: Icon(Icons.beenhere_outlined))
           ],
@@ -55,7 +50,9 @@ class _SubscribedState extends State<Subscribed> {
                     DocumentSnapshot ds = snapshot.data.docs[index];
                     return GestureDetector(
                       onTap: () {
-                        print('Card tapped');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetails(
+                            userId: FirebaseAuth.instance.currentUser.uid,
+                            taskId: ds.id)));
                       },
                       child: Card(
                         child: Padding(

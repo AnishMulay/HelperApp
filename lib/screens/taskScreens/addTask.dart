@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
-
-import '../home.dart';
+import 'package:helper/screens/studentHome.dart';
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);
@@ -77,7 +76,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                             isLoading = false;
                             Navigator.pushAndRemoveUntil(
                                 context,
-                                MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+                                MaterialPageRoute(builder: (context) => StudentHomePage()), (route) => false);
                           });
                         }
                       });

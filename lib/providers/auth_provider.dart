@@ -56,12 +56,13 @@ class AuthClass {
     auth.signOut();
   }
 
-  Future<String> addUser({String displayName, String phoneNumber, bool isStudent}) async {
+  Future<String> addUser({String email, String displayName, String phoneNumber, bool isStudent}) async {
     var firebaseUser = await auth.currentUser;
     try {
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
       users.doc(firebaseUser.uid)
           .set({
+        'email': email,
         'displayName': displayName,
         'phoneNumber': phoneNumber,
         'isStudent': isStudent
