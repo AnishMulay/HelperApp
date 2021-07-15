@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/register.dart';
 import 'package:helper/screens/authScreens/reset.dart';
-import 'package:helper/screens/splash.dart';
+import 'package:helper/screens/other/splash.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

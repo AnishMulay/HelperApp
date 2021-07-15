@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:helper/screens/studentHome.dart';
+import 'package:helper/screens/other/studentHome.dart';
+import 'package:helper/screens/other/studentProfile.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
 import 'package:helper/screens/taskScreens/taskDetails.dart';
 import 'package:helper/screens/taskScreens/volunteered.dart';
@@ -27,14 +28,24 @@ class _SubscribedState extends State<Subscribed> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
                 },
                 icon: Icon(Icons.home)),
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Subscribed()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Subscribed()));
                 },
-                icon: Icon(Icons.beenhere_outlined))
+                icon: Icon(Icons.beenhere_outlined)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentProfilePage()));
+                },
+                icon: Icon(Icons.person)),
+            IconButton(
+                onPressed: () {
+                  print('settings');
+                },
+                icon: Icon(Icons.settings)),
           ],
         ),
       ),

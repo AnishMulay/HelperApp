@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
-import 'package:helper/screens/volunteerHome.dart';
+import 'package:helper/screens/other/volunteerHome.dart';
 
 class Volunteered extends StatefulWidget {
   const Volunteered({Key? key}) : super(key: key);
@@ -26,12 +26,12 @@ class _VolunteeredState extends State<Volunteered> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerHomePage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerHomePage()));
                 },
                 icon: Icon(Icons.home)),
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Volunteered()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Volunteered()));
                 },
                 icon: Icon(Icons.beenhere_outlined))
           ],

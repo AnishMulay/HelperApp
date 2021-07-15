@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/authScreens/register.dart';
-import 'package:helper/screens/studentHome.dart';
-import 'package:helper/screens/volunteerHome.dart';
+import 'package:helper/screens/other/studentHome.dart';
+import 'package:helper/screens/other/volunteerHome.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 String email = '';

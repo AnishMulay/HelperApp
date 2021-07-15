@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/main.dart';
 import 'package:helper/providers/auth_provider.dart';
-import 'package:helper/screens/studentHome.dart';
+import 'package:helper/screens/other/studentHome.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
 import 'package:helper/screens/taskScreens/volunteered.dart';
-import 'authScreens/login.dart';
+import '../authScreens/login.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 String email = '';
@@ -50,12 +50,12 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerHomePage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerHomePage()));
                 },
                 icon: Icon(Icons.home)),
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Volunteered()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Volunteered()));
                 },
                 icon: Icon(Icons.beenhere_outlined))
           ],

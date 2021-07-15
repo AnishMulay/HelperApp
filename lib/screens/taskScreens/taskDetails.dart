@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/screens/taskScreens/editTask.dart';
+
+import '../other/studentHome.dart';
 
 String examTitle = '';
 String address = '';
@@ -15,11 +19,50 @@ class TaskDetails extends StatefulWidget {
 }
 
 class _TaskDetailsState extends State<TaskDetails> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Task Details'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FloatingActionButton(
+                heroTag: 'editButton',
+                child: Icon(Icons.edit),
+                backgroundColor: Colors.blue,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditTaskPage(userId: FirebaseAuth.instance.currentUser.uid, taskId: widget.taskId,))
+                  );
+                }),
+            SizedBox(width: 10,),
+            FloatingActionButton(
+                heroTag: 'deleteButton',
+                child: Icon(Icons.delete),
+                backgroundColor: Colors.red,
+                onPressed: () {
+                  FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).delete().then(
+                          (value) {
+                            deleteAccountDialogue(context);
+                            Future.delayed(Duration(seconds: 2), () {
+                              Navigator.of(context).pop(true);
+                            }).then((value) => {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHomePage()))
+                            });
+                          }).catchError((error) => {
+                            print(error.toString())
+                  });
+                }),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -82,6 +125,19 @@ class _TaskDetailsState extends State<TaskDetails> {
       isSubscribed = ds.data()['isSubscribed'];
       volunteerId = ds.data()['volunteer'];
     });
+  }
+
+  void deleteAccountDialogue(BuildContext context) {
+    var alertDialogue = AlertDialog(
+      title: Text('Success'),
+      content: Text('Task deleted'),
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return alertDialogue;
+        });
   }
 
 }

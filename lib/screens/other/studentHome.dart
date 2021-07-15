@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
-import 'package:helper/screens/splash.dart';
+import 'package:helper/screens/other/splash.dart';
+import 'package:helper/screens/other/studentProfile.dart';
 import 'package:helper/screens/taskScreens/addTask.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
 import 'package:helper/screens/taskScreens/taskNotify.dart';
-import 'authScreens/login.dart';
+import '../authScreens/login.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({Key? key}) : super(key: key);
@@ -38,22 +39,36 @@ class _StudentHomePageState extends State<StudentHomePage> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
                 },
                 icon: Icon(Icons.home)),
             IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Subscribed()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Subscribed()));
                 },
-                icon: Icon(Icons.beenhere_outlined))
+                icon: Icon(Icons.beenhere_outlined)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentProfilePage()));
+                },
+                icon: Icon(Icons.person)),
+            IconButton(
+                onPressed: () {
+                  print('settings');
+                },
+                icon: Icon(Icons.settings)),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddTaskPage()));
-        },
+      floatingActionButton: Container(
+        height: 35,
+        width: 35,
+        child: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddTaskPage()));
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: StreamBuilder(
