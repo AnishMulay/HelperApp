@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:helper/screens/other/studentProfile.dart';
+import 'package:helper/screens/other/studentSettings.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
 import 'package:helper/screens/taskScreens/taskDetails.dart';
 import 'package:helper/screens/taskScreens/volunteered.dart';
@@ -43,7 +44,7 @@ class _SubscribedState extends State<Subscribed> {
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  print('settings');
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
                 },
                 icon: Icon(Icons.settings)),
           ],

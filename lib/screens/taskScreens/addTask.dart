@@ -11,6 +11,8 @@ class AddTaskPage extends StatefulWidget {
 
 class _AddTaskPageState extends State<AddTaskPage> {
 
+  DateTime pickedDate = DateTime.now();
+  TimeOfDay pickedTime = TimeOfDay.now();
   TextEditingController _examTitle =TextEditingController();
   TextEditingController _address =TextEditingController();
   bool isOnline = false;
@@ -44,6 +46,18 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     ),
                   ),
                   const SizedBox(height: 30,),
+                  ListTile(
+                    title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}'),
+                    trailing: Text('Set Date'),
+                    onTap: pickDateDialogue,
+                  ),
+                  const SizedBox(height: 30,),
+                  ListTile(
+                    title: Text('Time: ${pickedTime.hour}, ${pickedTime.minute}'),
+                    trailing: Text('Set Time'),
+                    onTap: pickTimeDialogue,
+                  ),
+                  const SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -69,7 +83,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       AuthClass().addTask(
                         examTitle: _examTitle.text.trim(),
                         address: _address.text.trim(),
-                        isOnline: isOnline
+                        isOnline: isOnline,
+                        date: pickedDate,
+                        time: pickedTime
                       ).then((value) {
                         if(value == 'Task created'){
                           setState(() {
@@ -91,5 +107,37 @@ class _AddTaskPageState extends State<AddTaskPage> {
         child: CircularProgressIndicator(),
       )
     );
+  }
+
+  void pickDateDialogue() {
+    showDatePicker(
+        context: context,
+        initialDate: pickedDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100)
+    ).then((value) {
+      if(value == null){
+        return;
+      } else {
+        setState(() {
+          pickedDate = value;
+        });
+      }
+    });
+  }
+
+  void pickTimeDialogue() {
+    showTimePicker(
+        context: context,
+        initialTime: pickedTime)
+        .then((value) {
+       if(value == null){
+         return;
+       } else {
+         setState(() {
+           pickedTime = value;
+         });
+       }
+    });
   }
 }

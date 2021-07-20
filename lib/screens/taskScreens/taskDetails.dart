@@ -51,7 +51,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).delete().then(
                           (value) {
-                            deleteAccountDialogue(context);
+                            deleteTaskDialogue(context);
                             Future.delayed(Duration(seconds: 2), () {
                               Navigator.of(context).pop(true);
                             }).then((value) => {
@@ -127,7 +127,7 @@ class _TaskDetailsState extends State<TaskDetails> {
     });
   }
 
-  void deleteAccountDialogue(BuildContext context) {
+  void deleteTaskDialogue(BuildContext context) {
     var alertDialogue = AlertDialog(
       title: Text('Success'),
       content: Text('Task deleted'),

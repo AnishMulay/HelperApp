@@ -1,6 +1,7 @@
 //@dart=2.9
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthClass {
 
@@ -73,7 +74,7 @@ class AuthClass {
     }
   }
 
-  Future<String> addTask({String examTitle, String address, bool isOnline}) async {
+  Future<String> addTask({String examTitle, String address, bool isOnline, DateTime date, TimeOfDay time}) async {
     String userId = auth.currentUser.uid;
     try{
       CollectionReference tasks = FirebaseFirestore.instance.collection('Tasks');
@@ -83,6 +84,8 @@ class AuthClass {
         'address': address,
         'isOnline': isOnline,
         'isSubscribed': false,
+        'date': date,
+        'time': time,
         'volunteer': 'None'
       }
       );

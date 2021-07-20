@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/screens/other/volunteerProfile.dart';
+import 'package:helper/screens/other/volunteerSettings.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
@@ -33,7 +35,17 @@ class _VolunteeredState extends State<Volunteered> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Volunteered()));
                 },
-                icon: Icon(Icons.beenhere_outlined))
+                icon: Icon(Icons.beenhere_outlined)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerProfilePage()));
+                },
+                icon: Icon(Icons.person)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerSettingsPage()));
+                },
+                icon: Icon(Icons.settings)),
           ],
         ),
       ),

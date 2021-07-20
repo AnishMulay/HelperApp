@@ -1,31 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:helper/screens/other/editStudentProfile.dart';
+import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/screens/authScreens/login.dart';
+import 'package:helper/screens/other/editVolunteerProfile.dart';
 import 'package:helper/screens/other/splash.dart';
-import 'package:helper/screens/other/studentHome.dart';
-import 'package:helper/screens/other/studentSettings.dart';
-import 'package:helper/screens/taskScreens/subscribed.dart';
+import 'package:helper/screens/other/volunteerHome.dart';
+import 'package:helper/screens/other/volunteerSettings.dart';
+import 'package:helper/screens/taskScreens/volunteered.dart';
+
+import 'editStudentProfile.dart';
 
 String userId = '';
 String displayName = '';
 String email = '';
 String phoneNumber = '';
 
-class StudentProfilePage extends StatefulWidget {
-  const StudentProfilePage({Key? key}) : super(key: key);
+class VolunteerProfilePage extends StatefulWidget {
+  const VolunteerProfilePage({Key? key}) : super(key: key);
 
   @override
-  _StudentProfilePageState createState() => _StudentProfilePageState();
+  _VolunteerProfilePageState createState() => _VolunteerProfilePageState();
 }
 
-class _StudentProfilePageState extends State<StudentProfilePage> {
+class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Profile'),
+        title: Text('Volunteer Profile Page'),
+        actions: [
+          IconButton(onPressed: () {
+            //signout
+            AuthClass().signOut();
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+          }, icon: Icon(Icons.exit_to_app))
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -34,22 +46,22 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerHomePage()));
                 },
                 icon: Icon(Icons.home)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Subscribed()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Volunteered()));
                 },
                 icon: Icon(Icons.beenhere_outlined)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentProfilePage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerProfilePage()));
                 },
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerSettingsPage()));
                 },
                 icon: Icon(Icons.settings)),
           ],
@@ -66,7 +78,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 child: Icon(Icons.edit),
                 backgroundColor: Colors.blue,
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditStudentProfile()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditVolunteerProfile()));
                 }),
             SizedBox(width: 10,),
             FloatingActionButton(
@@ -76,16 +88,16 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).delete().then(
                           (value) => {
-                            FirebaseAuth.instance.currentUser.delete().then(
-                                    (value) {
-                                      deleteAccountDialogue(context);
-                                      Future.delayed(Duration(seconds: 2), () {
-                                        Navigator.of(context).pop(true);
-                                      }).then((value) {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
-                                      });
-                                    })
-                          });
+                        FirebaseAuth.instance.currentUser.delete().then(
+                                (value) {
+                              deleteAccountDialogue(context);
+                              Future.delayed(Duration(seconds: 2), () {
+                                Navigator.of(context).pop(true);
+                              }).then((value) {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
+                              });
+                            })
+                      });
                 })
           ],
         ),
@@ -141,7 +153,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 );
               }
@@ -155,9 +167,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   getUserData() async {
     userId = FirebaseAuth.instance.currentUser.uid;
     await FirebaseFirestore.instance.collection('Users')
-    .doc(userId)
-    .get()
-    .then((ds) {
+        .doc(userId)
+        .get()
+        .then((ds) {
       displayName = ds.data()['displayName'];
       email = ds.data()['email'];
       phoneNumber = ds.data()['phoneNumber'];

@@ -108,6 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       else{
                         if(value != null){
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                         }
                         else{
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('NULL')));

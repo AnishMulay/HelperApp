@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/other/splash.dart';
 import 'package:helper/screens/other/studentProfile.dart';
+import 'package:helper/screens/other/studentSettings.dart';
 import 'package:helper/screens/taskScreens/addTask.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
 import 'package:helper/screens/taskScreens/taskNotify.dart';
@@ -21,10 +22,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Student Home'),
         actions: [
           IconButton(onPressed: () {
-            //signout
             AuthClass().signOut();
             Navigator.pushAndRemoveUntil(
                 context,
@@ -54,26 +54,30 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  print('settings');
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
                 },
                 icon: Icon(Icons.settings)),
           ],
         ),
       ),
-      floatingActionButton: Container(
-        height: 35,
-        width: 35,
-        child: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AddTaskPage()));
-          },
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(65.0),
+        child: Container(
+          height: 60,
+          width: 60,
+          child: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AddTaskPage()));
+            },
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('Tasks')
                 .where('isSubscribed', isEqualTo: false)
+                .where('studentUserId', isEqualTo: FirebaseAuth.instance.currentUser.uid)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               return snapshot.hasData ?
