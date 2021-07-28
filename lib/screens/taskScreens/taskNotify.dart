@@ -11,6 +11,7 @@ import 'editTask.dart';
 String examTitle = '';
 String address = '';
 String volunteerId = '';
+String examDateTime = '';
 bool isSubscribed = false;
 
 class TaskNotify extends StatefulWidget {
@@ -104,6 +105,13 @@ class _TaskNotifyState extends State<TaskNotify> {
                         ),
                         SizedBox(height: 30,),
                         Row(
+                          children: [
+                            Text('Exam Date and Time: '),
+                            Text(examDateTime),
+                          ],
+                        ),
+                        SizedBox(height: 30,),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             MaterialButton(
@@ -134,6 +142,7 @@ class _TaskNotifyState extends State<TaskNotify> {
       address = ds.data()['address'];
       isSubscribed = ds.data()['isSubscribed'];
       volunteerId = ds.data()['volunteer'];
+      examDateTime = ds.data()['examDateTime'];
     });
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:helper/main.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/other/studentHome.dart';
+import 'package:helper/screens/other/volunteerCompleted.dart';
 import 'package:helper/screens/other/volunteerProfile.dart';
 import 'package:helper/screens/other/volunteerSettings.dart';
 import 'package:helper/screens/taskScreens/subscribeTask.dart';
@@ -31,6 +32,11 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
       appBar: AppBar(
         title: Text('Volunteer Home'),
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerSettingsPage()));
+              },
+              icon: Icon(Icons.settings)),
           IconButton(onPressed: () {
             //signout
             AuthClass().signOut();
@@ -62,14 +68,17 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerSettingsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerCompletedPage()));
                 },
-                icon: Icon(Icons.settings)),
+                icon: Icon(Icons.beenhere, color: Colors.green,)),
           ],
         ),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Tasks').where('isSubscribed', isEqualTo: false).snapshots(),
+        stream: FirebaseFirestore.instance.collection('Tasks')
+            .where('isSubscribed', isEqualTo: false)
+            .where('isCompleted', isEqualTo: false)
+            .snapshots(),
         builder: (context, AsyncSnapshot snapshot) {
           return snapshot.hasData ?
               ListView.builder(
@@ -106,20 +115,6 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
         },
       ),
     );
-  }
-}
-
-getUserData() async {
-  final firebaseUser = auth.currentUser;
-  if(firebaseUser != null){
-    await FirebaseFirestore.instance.collection('Users')
-        .doc(firebaseUser.uid)
-        .get()
-        .then((ds) {
-      email = ds.data()['displayName'];
-      phoneNumber = ds.data()['phoneNumber'];
-      isStudent = ds.data()['isStudent'];
-    });
   }
 }
 

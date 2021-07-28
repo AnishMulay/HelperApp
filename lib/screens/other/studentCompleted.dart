@@ -3,27 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/login.dart';
-import 'package:helper/screens/other/studentCompleted.dart';
+import 'package:helper/screens/other/splash.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:helper/screens/other/studentProfile.dart';
 import 'package:helper/screens/other/studentSettings.dart';
-import 'package:helper/screens/taskScreens/subscribeTask.dart';
-import 'package:helper/screens/taskScreens/taskDetails.dart';
-import 'package:helper/screens/taskScreens/volunteered.dart';
+import 'package:helper/screens/taskScreens/subscribed.dart';
+import 'package:helper/screens/taskScreens/taskNotify.dart';
 
-class Subscribed extends StatefulWidget {
-  const Subscribed({Key? key}) : super(key: key);
+class StudentCompletedPage extends StatefulWidget {
+  const StudentCompletedPage({Key? key}) : super(key: key);
 
   @override
-  _SubscribedState createState() => _SubscribedState();
+  _StudentCompletedPageState createState() => _StudentCompletedPageState();
 }
 
-class _SubscribedState extends State<Subscribed> {
+class _StudentCompletedPageState extends State<StudentCompletedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Subscribed Tasks'),
+        title: Text('Completed Tasks'),
         actions: [
           IconButton(
               onPressed: () {
@@ -68,40 +67,42 @@ class _SubscribedState extends State<Subscribed> {
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Tasks')
-            .where('isSubscribed', isEqualTo: true)
             .where('studentUserId', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-            .where('isCompleted', isEqualTo: false).snapshots(),
-        builder: (context, AsyncSnapshot snapshot){
+            .where('isCompleted', isEqualTo: true)
+            .snapshots(),
+        builder: (context, AsyncSnapshot snapshot) {
           return snapshot.hasData ?
-              ListView.builder(
-                  itemCount: snapshot.data.docs.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data.docs[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetails(
-                            userId: FirebaseAuth.instance.currentUser.uid,
-                            taskId: ds.id)));
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20,),
-                              Text(ds['examTitle']),
-                              SizedBox(height: 20,),
-                              Text(ds['address']),
-                              SizedBox(height: 20,),
-                            ],
-                          ),
-                        ),
-                      ),
+          ListView.builder(
+              itemCount: snapshot.data.docs.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot ds = snapshot.data.docs[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TaskNotify(userId: auth.currentUser.uid, taskId: ds.id,))
                     );
-                  }) :
-              Center(
-                child: CircularProgressIndicator(),
-              );
+                  },
+                  child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20,),
+                            Text(ds['examTitle']),
+                            SizedBox(height: 20,),
+                            Text(ds['address']),
+                            SizedBox(height: 20,),
+                          ],
+                        ),
+                      )
+                  ),
+                );
+              }) :
+          Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

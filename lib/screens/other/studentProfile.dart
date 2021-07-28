@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/editStudentProfile.dart';
 import 'package:helper/screens/other/splash.dart';
+import 'package:helper/screens/other/studentCompleted.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:helper/screens/other/studentSettings.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
@@ -26,6 +29,19 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Profile'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
+              },
+              icon: Icon(Icons.settings)),
+          IconButton(onPressed: () {
+            AuthClass().signOut();
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+          }, icon: Icon(Icons.exit_to_app))
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -49,9 +65,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentCompletedPage()));
                 },
-                icon: Icon(Icons.settings)),
+                icon: Icon(Icons.beenhere, color: Colors.green,)),
           ],
         ),
       ),

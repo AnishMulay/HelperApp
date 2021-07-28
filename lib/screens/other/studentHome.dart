@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/other/splash.dart';
+import 'package:helper/screens/other/studentCompleted.dart';
 import 'package:helper/screens/other/studentProfile.dart';
 import 'package:helper/screens/other/studentSettings.dart';
 import 'package:helper/screens/taskScreens/addTask.dart';
@@ -24,6 +25,11 @@ class _StudentHomePageState extends State<StudentHomePage> {
       appBar: AppBar(
         title: Text('Student Home'),
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
+              },
+              icon: Icon(Icons.settings)),
           IconButton(onPressed: () {
             AuthClass().signOut();
             Navigator.pushAndRemoveUntil(
@@ -54,9 +60,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentCompletedPage()));
                 },
-                icon: Icon(Icons.settings)),
+                icon: Icon(Icons.beenhere, color: Colors.green,)),
           ],
         ),
       ),
@@ -78,6 +84,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
             stream: FirebaseFirestore.instance.collection('Tasks')
                 .where('isSubscribed', isEqualTo: false)
                 .where('studentUserId', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+                .where('isCompleted', isEqualTo: false)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               return snapshot.hasData ?

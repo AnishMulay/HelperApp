@@ -53,7 +53,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   ),
                   const SizedBox(height: 30,),
                   ListTile(
-                    title: Text('Time: ${pickedTime.hour}, ${pickedTime.minute}'),
+                    title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}'),
                     trailing: Text('Set Time'),
                     onTap: pickTimeDialogue,
                   ),
@@ -84,8 +84,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         examTitle: _examTitle.text.trim(),
                         address: _address.text.trim(),
                         isOnline: isOnline,
-                        date: pickedDate,
-                        time: pickedTime
+                        examDate: pickedDate,
+                        examTime: pickedTime
                       ).then((value) {
                         if(value == 'Task created'){
                           setState(() {
@@ -114,7 +114,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
         context: context,
         initialDate: pickedDate,
         firstDate: DateTime.now(),
-        lastDate: DateTime(2100)
+        lastDate: DateTime(2100),
     ).then((value) {
       if(value == null){
         return;

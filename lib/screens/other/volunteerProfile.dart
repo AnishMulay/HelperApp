@@ -5,6 +5,7 @@ import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/editVolunteerProfile.dart';
 import 'package:helper/screens/other/splash.dart';
+import 'package:helper/screens/other/volunteerCompleted.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
 import 'package:helper/screens/other/volunteerSettings.dart';
 import 'package:helper/screens/taskScreens/volunteered.dart';
@@ -30,6 +31,11 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
       appBar: AppBar(
         title: Text('Volunteer Profile Page'),
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerSettingsPage()));
+              },
+              icon: Icon(Icons.settings)),
           IconButton(onPressed: () {
             //signout
             AuthClass().signOut();
@@ -61,9 +67,9 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
                 icon: Icon(Icons.person)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerSettingsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerCompletedPage()));
                 },
-                icon: Icon(Icons.settings)),
+                icon: Icon(Icons.beenhere, color: Colors.green,)),
           ],
         ),
       ),

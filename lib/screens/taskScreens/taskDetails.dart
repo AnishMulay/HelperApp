@@ -8,6 +8,7 @@ import '../other/studentHome.dart';
 String examTitle = '';
 String address = '';
 String volunteerId = '';
+String examDateTime = '';
 bool isSubscribed = false;
 
 class TaskDetails extends StatefulWidget {
@@ -101,9 +102,32 @@ class _TaskDetailsState extends State<TaskDetails> {
                         ],
                       ),
                       SizedBox(height: 30,),
+                      Row(
+                        children: [
+                          Text('Exam Date and Time: '),
+                          Text(examDateTime),
+                        ],
+                      ),
+                      SizedBox(height: 30,),
                       Text('Who has volunteered'),
                       SizedBox(height: 10,),
-                      Text(volunteerId)
+                      Text(volunteerId),
+                      SizedBox(height: 40,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                              child: Text('Mark as completed'),
+                              color: Colors.green,
+                              onPressed: () {
+                                FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId)
+                                    .update({
+                                  'isCompleted': true
+                                });
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
+                              })
+                        ],
+                      )
                     ],
                   ),
                 );
@@ -124,6 +148,7 @@ class _TaskDetailsState extends State<TaskDetails> {
       address = ds.data()['address'];
       isSubscribed = ds.data()['isSubscribed'];
       volunteerId = ds.data()['volunteer'];
+      examDateTime = ds.data()['examDateTime'];
     });
   }
 

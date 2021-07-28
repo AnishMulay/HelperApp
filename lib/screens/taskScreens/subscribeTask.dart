@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 String examTitle = '';
 String address = '';
+String examDateTime = '';
 bool isSubscribed = false;
 
 class SubscribeTaskScreen extends StatefulWidget {
@@ -62,6 +63,13 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                       ),
                       SizedBox(height: 30,),
                       Row(
+                        children: [
+                          Text('Exam Date and Time:  '),
+                          Text(examDateTime),
+                        ],
+                      ),
+                      SizedBox(height: 30,),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text('Subscribe to this task ?'),
@@ -104,6 +112,7 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
           examTitle = ds.data()['examTitle'];
           address = ds.data()['address'];
           isSubscribed = ds.data()['isSubscribed'];
+          examDateTime = ds.data()['examDateTime'];
     });
   }
 }

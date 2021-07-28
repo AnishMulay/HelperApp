@@ -3,26 +3,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/login.dart';
-import 'package:helper/screens/other/volunteerCompleted.dart';
+import 'package:helper/screens/other/volunteerHome.dart';
 import 'package:helper/screens/other/volunteerProfile.dart';
 import 'package:helper/screens/other/volunteerSettings.dart';
-import 'package:helper/screens/taskScreens/subscribeTask.dart';
-import 'package:helper/screens/taskScreens/subscribed.dart';
-import 'package:helper/screens/other/volunteerHome.dart';
+import 'package:helper/screens/taskScreens/volunteered.dart';
 
-class Volunteered extends StatefulWidget {
-  const Volunteered({Key? key}) : super(key: key);
+class VolunteerCompletedPage extends StatefulWidget {
+  const VolunteerCompletedPage({Key? key}) : super(key: key);
 
   @override
-  _VolunteeredState createState() => _VolunteeredState();
+  _VolunteerCompletedPageState createState() => _VolunteerCompletedPageState();
 }
 
-class _VolunteeredState extends State<Volunteered> {
+class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteered tasks'),
+        title: Text('Completed Tasks'),
         actions: [
           IconButton(
               onPressed: () {
@@ -68,43 +66,38 @@ class _VolunteeredState extends State<Volunteered> {
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Tasks')
-            .where('isSubscribed', isEqualTo: true)
             .where('volunteer', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-            .where('isCompleted', isEqualTo: false)
+            .where('isCompleted', isEqualTo: true)
             .snapshots(),
-        builder: (context, AsyncSnapshot snapshot){
+        builder: (context, AsyncSnapshot snapshot) {
           return snapshot.hasData ?
-              ListView.builder(
-                  itemCount: snapshot.data.docs.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data.docs[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SubscribeTaskScreen(userId: FirebaseAuth.instance.currentUser.uid, taskId: ds.id,))
-                        );
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20,),
-                              Text(ds['examTitle']),
-                              SizedBox(height: 20,),
-                              Text(ds['address']),
-                              SizedBox(height: 20,),
-                            ],
-                          ),
-                        ),
+          ListView.builder(
+              itemCount: snapshot.data.docs.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot ds = snapshot.data.docs[index];
+                return GestureDetector(
+                  onTap: () {
+                    print('Tapped');
+                  },
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20,),
+                          Text(ds['examTitle']),
+                          SizedBox(height: 20,),
+                          Text(ds['address']),
+                          SizedBox(height: 20,),
+                        ],
                       ),
-                    );
-                  }) :
-              Center(
-                child: CircularProgressIndicator(),
-              );
+                    ),
+                  ),
+                );
+              }) :
+          Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

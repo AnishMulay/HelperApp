@@ -17,34 +17,6 @@ class _StudentSettingsPageState extends State<StudentSettingsPage> {
       appBar: AppBar(
         title: Text('Student Settings'),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
-                },
-                icon: Icon(Icons.home)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Subscribed()));
-                },
-                icon: Icon(Icons.beenhere_outlined)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentProfilePage()));
-                },
-                icon: Icon(Icons.person)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
-                },
-                icon: Icon(Icons.settings)),
-          ],
-        ),
-      ),
     );
   }
 }
