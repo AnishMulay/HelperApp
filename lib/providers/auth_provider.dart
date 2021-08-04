@@ -89,10 +89,25 @@ class AuthClass {
         'isSubscribed': false,
         'examDateTime': dateFormat.format(examDateTime),
         'volunteer': 'None',
-        'isCompleted': false
+        'isCompleted': false,
       }
       );
       return 'Task created';
+    } catch(e) {
+      return 'Error';
+    }
+  }
+
+  Future<String> addLike({String volunteerId, String studentId, String taskId}) async {
+    try{
+      CollectionReference likes = FirebaseFirestore.instance.collection('Likes');
+      likes.add({
+        'volunteerId': volunteerId,
+        'studentId': studentId,
+        'taskId': taskId
+      }
+      );
+      return 'liked';
     } catch(e) {
       return 'Error';
     }

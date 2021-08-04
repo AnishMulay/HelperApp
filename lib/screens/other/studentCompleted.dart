@@ -7,6 +7,7 @@ import 'package:helper/screens/other/splash.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:helper/screens/other/studentProfile.dart';
 import 'package:helper/screens/other/studentSettings.dart';
+import 'package:helper/screens/taskScreens/completedDetails.dart';
 import 'package:helper/screens/taskScreens/subscribed.dart';
 import 'package:helper/screens/taskScreens/taskNotify.dart';
 
@@ -81,7 +82,7 @@ class _StudentCompletedPageState extends State<StudentCompletedPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TaskNotify(userId: auth.currentUser.uid, taskId: ds.id,))
+                            builder: (context) => CompletedTaskDetails(userId: auth.currentUser.uid, taskId: ds.id,))
                     );
                   },
                   child: Card(

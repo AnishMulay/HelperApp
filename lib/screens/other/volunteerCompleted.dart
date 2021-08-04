@@ -6,6 +6,7 @@ import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
 import 'package:helper/screens/other/volunteerProfile.dart';
 import 'package:helper/screens/other/volunteerSettings.dart';
+import 'package:helper/screens/taskScreens/completedDetails.dart';
 import 'package:helper/screens/taskScreens/volunteered.dart';
 
 class VolunteerCompletedPage extends StatefulWidget {
@@ -77,7 +78,11 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
                 DocumentSnapshot ds = snapshot.data.docs[index];
                 return GestureDetector(
                   onTap: () {
-                    print('Tapped');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CompletedTaskDetails(userId: auth.currentUser.uid, taskId: ds.id,))
+                    );
                   },
                   child: Card(
                     child: Padding(

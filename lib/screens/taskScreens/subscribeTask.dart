@@ -2,11 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/screens/other/editStudentProfile.dart';
 
 String examTitle = '';
 String address = '';
 String examDateTime = '';
+String studentId = '';
 bool isSubscribed = false;
+bool isLiked = false;
 
 class SubscribeTaskScreen extends StatefulWidget {
   final String userId, taskId;
@@ -92,6 +96,31 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                                 });
                               }),
                         ],
+                      ),
+                      SizedBox(height: 30,),
+                      Center(
+                        child: MaterialButton(
+                          color: Colors.blue,
+                            child: Text('Add to favorites'),
+                            onPressed: () async {
+                              QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Likes')
+                                  .where('volunteerId', isEqualTo: widget.userId)
+                                  .where('studentId', isEqualTo: studentId)
+                                  .where('taskId', isEqualTo: widget.taskId)
+                                  .get();
+
+                              if(!snapshot.docs.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text('Already added'),
+                                ));
+                              } else {
+                                AuthClass().addLike(
+                                  volunteerId: widget.userId,
+                                  studentId: studentId,
+                                  taskId: widget.taskId
+                                );
+                              }
+                            }),
                       )
                     ],
                   ),
@@ -113,7 +142,10 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
           address = ds.data()['address'];
           isSubscribed = ds.data()['isSubscribed'];
           examDateTime = ds.data()['examDateTime'];
+          studentId = ds.data()['studentUserId'];
     });
+
   }
+
 }
 
