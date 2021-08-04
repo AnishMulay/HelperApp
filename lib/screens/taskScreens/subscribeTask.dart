@@ -109,7 +109,7 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                                   .where('taskId', isEqualTo: widget.taskId)
                                   .get();
 
-                              if(!snapshot.docs.isEmpty){
+                              if(snapshot.docs.isNotEmpty){
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: Text('Already added'),
                                 ));

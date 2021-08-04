@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/screens/other/taskLikes.dart';
 import 'package:helper/screens/taskScreens/editTask.dart';
 
 import '../other/studentHome.dart';
@@ -125,6 +126,17 @@ class _TaskDetailsState extends State<TaskDetails> {
                                   'isCompleted': true
                                 });
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
+                              })
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                              child: Text('See who has liked this task'),
+                              color: Colors.blueAccent,
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TaskLikes(taskId: widget.taskId)));
                               })
                         ],
                       )
