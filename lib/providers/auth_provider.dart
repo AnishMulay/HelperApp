@@ -64,6 +64,7 @@ class AuthClass {
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
       users.doc(firebaseUser.uid)
           .set({
+        'userId': firebaseUser.uid,
         'email': email,
         'displayName': displayName,
         'phoneNumber': phoneNumber,

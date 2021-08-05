@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:helper/screens/other/viewVolunteer.dart';
 
 class TaskLikes extends StatefulWidget {
   final String taskId;
@@ -27,18 +29,23 @@ class _TaskLikesState extends State<TaskLikes> {
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text('Volunteer Id:  '),
-                                Text(ds['volunteerId'])
-                              ],
-                            )
-                          ],
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ViewVolunteer(volunteerId: ds['volunteerId'])));
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text('VolunteerId: '),
+                                  Text(ds['volunteerId'])
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -49,5 +56,12 @@ class _TaskLikesState extends State<TaskLikes> {
         },
       ),
     );
+  }
+
+  getUserDataById(String userId) async {
+    await FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).get().then(
+            (ds) {
+
+            });
   }
 }
