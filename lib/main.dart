@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/other/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:provider/provider.dart';
 
 SharedPreferences sharedPreferences;
 
@@ -22,8 +24,16 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Home(),
+    return ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(),
+      child: Consumer<ThemeNotifier>(
+        builder: (context, ThemeNotifier notifier, child){
+          return MaterialApp(
+            theme: notifier.darkTheme ? dark : light,
+            home: Home(),
+          );
+        },
+      ),
     );
   }
 }
@@ -60,3 +70,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
