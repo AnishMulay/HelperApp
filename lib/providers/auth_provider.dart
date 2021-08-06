@@ -91,6 +91,7 @@ class AuthClass {
         'examDateTime': dateFormat.format(examDateTime),
         'volunteer': 'None',
         'isCompleted': false,
+        'notification': 'email'
       }
       );
       return 'Task created';

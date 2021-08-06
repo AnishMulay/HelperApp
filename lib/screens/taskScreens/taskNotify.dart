@@ -116,10 +116,11 @@ class _TaskNotifyState extends State<TaskNotify> {
                           children: [
                             MaterialButton(
                                 color: Colors.blue,
-                                child: Text('Send Notification Email'),
+                                child: Text('Send Email'),
                                 onPressed: () {
                                   sendAllEmails();
-                                })
+                                }),
+                            SizedBox(width: 10,),
                           ],
                         )
                       ],

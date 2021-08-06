@@ -2,6 +2,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/screens/other/splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+SharedPreferences sharedPreferences;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +12,14 @@ void main() {
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
