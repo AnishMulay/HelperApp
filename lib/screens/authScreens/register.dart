@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/other/splash.dart';
 import 'login.dart';
@@ -23,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: Text('Register', style: GoogleFonts.montserrat(fontSize: 18),),
       ),
       body: isLoading == false ? SingleChildScrollView(
         child: Padding(
@@ -33,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _email,
                 decoration: InputDecoration(
+                    hintStyle: GoogleFonts.montserrat(fontSize: 18),
                     hintText: 'email',
                     border: OutlineInputBorder()
                 ),
@@ -41,6 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _password,
                 decoration: InputDecoration(
+                    hintStyle: GoogleFonts.montserrat(fontSize: 18),
                     hintText: 'Password',
                     border: OutlineInputBorder()
                 ),
@@ -49,7 +52,8 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _displayName,
                 decoration: InputDecoration(
-                    hintText: 'Display Name',
+                    hintStyle: GoogleFonts.montserrat(fontSize: 18),
+                    hintText: 'Full Name',
                     border: OutlineInputBorder()
                 ),
               ),
@@ -57,15 +61,16 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _phoneNumber,
                 decoration: InputDecoration(
+                    hintStyle: GoogleFonts.montserrat(fontSize: 18),
                     hintText: 'Phone Number',
                     border: OutlineInputBorder()
                 ),
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Are you a student', style: TextStyle(fontSize: 20),),
+                  Text('Are you a student', style: GoogleFonts.montserrat(fontSize: 18),),
                   SizedBox(width: 17,),
                   Switch(
                     value: isStudent,
@@ -77,9 +82,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 20,),
               FlatButton(
-                  color: Colors.blue,
+                  color: Colors.blueAccent,
                   onPressed: () {
                     setState(() {
                       isLoading = true;
@@ -115,17 +120,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                       }
                     });
-                  }, child: Text('Create Account')),
+                  }, child: Text('Create Account', style: GoogleFonts.montserrat(fontSize: 18),)),
               SizedBox(height: 20,),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                 },
                 child: Text(
                     'Already have an account ?',
-                  style: TextStyle(
-                    fontSize: 17
-                  ),
+                  style: GoogleFonts.montserrat(fontSize: 18),
                 ),
               ),
               const SizedBox(height: 20,),

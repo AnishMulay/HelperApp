@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:intl/intl.dart';
 
@@ -28,7 +29,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Task'),
+        title: Text('Edit Task', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -47,14 +48,14 @@ class _EditTaskPageState extends State<EditTaskPage> {
                     SizedBox(height: 15,),
                     Row(
                       children: [
-                        Text('Task ID: '),
+                        Text('Task ID: ', style: GoogleFonts.montserrat(fontSize: 18)),
                         Text(widget.taskId),
                       ],
                     ),
                     SizedBox(height: 15,),
                     Row(
                       children: [
-                        Text('Current Exam Title: '),
+                        Text('Current Exam Title: ', style: GoogleFonts.montserrat(fontSize: 18)),
                         Text(examTitle),
                       ],
                     ),
@@ -68,7 +69,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                     SizedBox(height: 15,),
                     Row(
                       children: [
-                        Text('Current Exam Address: '),
+                        Text('Current Exam Address: ', style: GoogleFonts.montserrat(fontSize: 18)),
                         Text(address),
                       ],
                     ),
@@ -81,21 +82,21 @@ class _EditTaskPageState extends State<EditTaskPage> {
                     ),
                     SizedBox(height: 15,),
                     ListTile(
-                      title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}'),
-                      trailing: Text('Set Date'),
+                      title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}', style: GoogleFonts.montserrat(fontSize: 18)),
+                      trailing: Text('Set Date', style: GoogleFonts.montserrat(fontSize: 18)),
                       onTap: pickDateDialogue,
                     ),
                     const SizedBox(height: 10,),
                     ListTile(
-                      title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}'),
-                      trailing: Text('Set Time'),
+                      title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}', style: GoogleFonts.montserrat(fontSize: 18)),
+                      trailing: Text('Set Time', style: GoogleFonts.montserrat(fontSize: 18)),
                       onTap: pickTimeDialogue,
                     ),
                     const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Is the exam online '),
+                        Text('Is the exam online ', style: GoogleFonts.montserrat(fontSize: 18)),
                         SizedBox(width: 10,),
                         Switch(
                           value: isOnline,
@@ -115,8 +116,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
-                          child: Text('Save'),
-                          color: Colors.blue,
+                          child: Text('Save', style: GoogleFonts.montserrat(fontSize: 18)),
+                          color: Colors.blueAccent,
                           onPressed: () {
                             DateTime examDateTime = DateTime(pickedDate.year, pickedDate.month, pickedDate.day, pickedTime.hour, pickedTime.minute);
                             DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");

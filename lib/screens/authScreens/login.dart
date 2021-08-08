@@ -3,6 +3,7 @@ import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/register.dart';
 import 'package:helper/screens/authScreens/reset.dart';
 import 'package:helper/screens/other/splash.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Login', style: GoogleFonts.montserrat(fontSize: 18),),
       ),
       body: isLoading == false ? Padding(
         padding: const EdgeInsets.all(30.0),
@@ -30,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             TextFormField(
               controller: _email,
               decoration: InputDecoration(
+                  hintStyle: GoogleFonts.montserrat(fontSize: 18),
                   hintText: 'email',
                   border: OutlineInputBorder()
               ),
@@ -38,13 +40,14 @@ class _LoginPageState extends State<LoginPage> {
             TextFormField(
               controller: _password,
               decoration: InputDecoration(
+                  hintStyle: GoogleFonts.montserrat(fontSize: 18),
                   hintText: 'Password',
                   border: OutlineInputBorder()
               ),
             ),
             const SizedBox(height: 30,),
             FlatButton(
-                color: Colors.blue,
+                color: Colors.blueAccent,
                 onPressed: () {
                   setState(() {
                     isLoading = true;
@@ -71,29 +74,25 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     }
                   });
-                }, child: Text('Login')),
+                }, child: Text('Login', style: GoogleFonts.montserrat(fontSize: 18))),
             SizedBox(height: 20,),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
               },
               child: Text(
                   "Don't have an account ?",
-                style: TextStyle(
-                  fontSize: 17
-                ),
+                  style: GoogleFonts.montserrat(fontSize: 18)
               ),
             ),
             const SizedBox(height: 20,),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResetPage()));
               },
               child: Text(
                   'Forgot Password ?',
-                style: TextStyle(
-                  fontSize: 17
-                ),
+                  style: GoogleFonts.montserrat(fontSize: 18)
               ),
             ),
           ],

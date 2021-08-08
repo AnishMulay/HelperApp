@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/screens/other/taskLikes.dart';
 import 'package:helper/screens/taskScreens/editTask.dart';
 
@@ -26,7 +27,7 @@ class _TaskDetailsState extends State<TaskDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task Details'),
+        title: Text('Task Details', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
@@ -37,7 +38,7 @@ class _TaskDetailsState extends State<TaskDetails> {
             FloatingActionButton(
                 heroTag: 'editButton',
                 child: Icon(Icons.edit),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.blueAccent,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -49,7 +50,7 @@ class _TaskDetailsState extends State<TaskDetails> {
             FloatingActionButton(
                 heroTag: 'deleteButton',
                 child: Icon(Icons.delete),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.redAccent,
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).delete().then(
                           (value) {
@@ -84,33 +85,33 @@ class _TaskDetailsState extends State<TaskDetails> {
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Task ID: '),
+                          Text('Task ID: ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(widget.taskId),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Title: '),
+                          Text('Exam Title: ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(examTitle),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Address: '),
+                          Text('Exam Address: ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(address),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Date and Time: '),
+                          Text('Exam Date and Time: ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(examDateTime),
                         ],
                       ),
                       SizedBox(height: 30,),
-                      Text('Who has volunteered'),
+                      Text('Who has volunteered', style: GoogleFonts.montserrat(fontSize: 18)),
                       SizedBox(height: 10,),
                       Text(volunteerId),
                       SizedBox(height: 40,),
@@ -118,8 +119,8 @@ class _TaskDetailsState extends State<TaskDetails> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           MaterialButton(
-                              child: Text('Mark as completed'),
-                              color: Colors.green,
+                              child: Text('Mark as completed', style: GoogleFonts.montserrat(fontSize: 18)),
+                              color: Colors.greenAccent,
                               onPressed: () {
                                 FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId)
                                     .update({
@@ -133,7 +134,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           MaterialButton(
-                              child: Text('See who has liked this task'),
+                              child: Text('See who has liked this task', style: GoogleFonts.montserrat(fontSize: 18)),
                               color: Colors.blueAccent,
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => TaskLikes(taskId: widget.taskId)));

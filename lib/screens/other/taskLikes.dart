@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/screens/other/viewVolunteer.dart';
 
 class TaskLikes extends StatefulWidget {
@@ -17,7 +18,7 @@ class _TaskLikesState extends State<TaskLikes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Who has liked this task'),
+        title: Text('Who has liked this task', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Likes')
@@ -40,8 +41,8 @@ class _TaskLikesState extends State<TaskLikes> {
                             children: [
                               Row(
                                 children: [
-                                  Text('VolunteerId: '),
-                                  Text(ds['volunteerId'])
+                                  Text('VolunteerId: ',style: GoogleFonts.montserrat(fontSize: 18)),
+                                  Text(ds['volunteerId'], style: GoogleFonts.montserrat(fontSize: 18))
                                 ],
                               )
                             ],
@@ -58,10 +59,4 @@ class _TaskLikesState extends State<TaskLikes> {
     );
   }
 
-  getUserDataById(String userId) async {
-    await FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).get().then(
-            (ds) {
-
-            });
-  }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/other/editStudentProfile.dart';
 
@@ -26,7 +27,7 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Subscribe to task'),
+        title: Text('Subscribe to task', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -47,28 +48,28 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Task ID:  '),
+                          Text('Task ID:  ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(widget.taskId),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Title:  '),
+                          Text('Exam Title:  ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(examTitle),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Address:  '),
+                          Text('Exam Address:  ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(address),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Date and Time:  '),
+                          Text('Exam Date and Time:  ', style: GoogleFonts.montserrat(fontSize: 18)),
                           Text(examDateTime),
                         ],
                       ),
@@ -76,7 +77,7 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Subscribe to this task ?'),
+                          Text('Subscribe to this task ?', style: GoogleFonts.montserrat(fontSize: 18)),
                           SizedBox(width: 10,),
                           Switch(
                               value: isSubscribed,
@@ -100,8 +101,8 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                       SizedBox(height: 30,),
                       Center(
                         child: MaterialButton(
-                          color: Colors.blue,
-                            child: Text('Add to favorites'),
+                          color: Colors.blueAccent,
+                            child: Text('Add to favorites', style: GoogleFonts.montserrat(fontSize: 18)),
                             onPressed: () async {
                               QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Likes')
                                   .where('volunteerId', isEqualTo: widget.userId)

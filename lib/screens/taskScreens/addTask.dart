@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/other/studentHome.dart';
 
@@ -22,7 +23,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Task Page'),
+        title: Text('Add Task Page', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       body: isLoading == false ?
           SingleChildScrollView(
@@ -33,6 +34,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   TextFormField(
                     controller: _examTitle,
                     decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(fontSize: 18),
                         hintText: 'exam title',
                         border: OutlineInputBorder()
                     ),
@@ -41,27 +43,28 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   TextFormField(
                     controller: _address,
                     decoration: InputDecoration(
+                      hintStyle: GoogleFonts.montserrat(fontSize: 18),
                         hintText: 'address',
                         border: OutlineInputBorder()
                     ),
                   ),
                   const SizedBox(height: 30,),
                   ListTile(
-                    title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}'),
-                    trailing: Text('Set Date'),
+                    title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}',style: GoogleFonts.montserrat(fontSize: 18),),
+                    trailing: Text('Set Date', style: GoogleFonts.montserrat(fontSize: 18)),
                     onTap: pickDateDialogue,
                   ),
                   const SizedBox(height: 30,),
                   ListTile(
-                    title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}'),
-                    trailing: Text('Set Time'),
+                    title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}', style: GoogleFonts.montserrat(fontSize: 18)),
+                    trailing: Text('Set Time', style: GoogleFonts.montserrat(fontSize: 18)),
                     onTap: pickTimeDialogue,
                   ),
                   const SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Is the exam online', style: TextStyle(fontSize: 20),),
+                      Text('Is the exam online', style: GoogleFonts.montserrat(fontSize: 18),),
                       SizedBox(width: 17,),
                       Switch(
                         value: isOnline,
@@ -75,7 +78,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   ),
                   const SizedBox(height: 30,),
                   FlatButton(
-                    color: Colors.blue,
+                    color: Colors.blueAccent,
                     onPressed: () {
                       setState(() {
                         isLoading = true;
@@ -97,7 +100,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         }
                       });
                     },
-                    child: Text('Create Task'),
+                    child: Text('Create Task', style: GoogleFonts.montserrat(fontSize: 18)),
                   )
                 ],
               ),

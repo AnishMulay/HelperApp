@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
@@ -21,7 +22,7 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Tasks'),
+        title: Text('Completed Tasks', style: GoogleFonts.montserrat(fontSize: 18)),
         actions: [
           IconButton(
               onPressed: () {
@@ -61,7 +62,7 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerCompletedPage()));
                 },
-                icon: Icon(Icons.beenhere, color: Colors.green,)),
+                icon: Icon(Icons.beenhere, color: Colors.greenAccent,)),
           ],
         ),
       ),
@@ -90,9 +91,9 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
                       child: Column(
                         children: [
                           SizedBox(height: 20,),
-                          Text(ds['examTitle']),
+                          Text(ds['examTitle'], style: GoogleFonts.montserrat(fontSize: 18)),
                           SizedBox(height: 20,),
-                          Text(ds['address']),
+                          Text(ds['address'], style: GoogleFonts.montserrat(fontSize: 18)),
                           SizedBox(height: 20,),
                         ],
                       ),

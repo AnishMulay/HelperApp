@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/editVolunteerProfile.dart';
@@ -29,7 +30,7 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteer Profile Page'),
+        title: Text('Volunteer Profile Page', style: GoogleFonts.montserrat(fontSize: 18)),
         actions: [
           IconButton(
               onPressed: () {
@@ -69,7 +70,7 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VolunteerCompletedPage()));
                 },
-                icon: Icon(Icons.beenhere, color: Colors.green,)),
+                icon: Icon(Icons.beenhere, color: Colors.greenAccent,)),
           ],
         ),
       ),
@@ -82,7 +83,7 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
             FloatingActionButton(
                 heroTag: 'editProfileButton',
                 child: Icon(Icons.edit),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.blueAccent,
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditVolunteerProfile()));
                 }),
@@ -90,7 +91,7 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
             FloatingActionButton(
                 heroTag: 'deleteProfileButton',
                 child: Icon(Icons.delete),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.redAccent,
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).delete().then(
                           (value) => {
@@ -132,29 +133,22 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('User ID: '),
-                              Text(userId),
+                              Text('Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(displayName, style: GoogleFonts.montserrat(fontSize: 18)),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Display Name: '),
-                              Text(displayName),
+                              Text('Email: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(email, style: GoogleFonts.montserrat(fontSize: 18)),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Email: '),
-                              Text(email),
-                            ],
-                          ),
-                          SizedBox(height: 30,),
-                          Row(
-                            children: [
-                              Text('Phone Number: '),
-                              Text(phoneNumber),
+                              Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(phoneNumber, style: GoogleFonts.montserrat(fontSize: 18)),
                             ],
                           ),
                         ],

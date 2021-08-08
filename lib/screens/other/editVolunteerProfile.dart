@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
 
 String userId = '';
@@ -24,7 +25,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Volunteer Profile'),
+        title: Text('Edit Volunteer Profile', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -43,7 +44,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
                     SizedBox(height: 30,),
                     Row(
                       children: [
-                        Text('Current Display Name: '),
+                        Text('Current Display Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
                         Text(displayName),
                       ],
                     ),
@@ -57,7 +58,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
                     SizedBox(height: 30,),
                     Row(
                       children: [
-                        Text('Current Phone Number: '),
+                        Text('Current Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
                         Text(phoneNumber),
                       ],
                     ),
@@ -73,8 +74,8 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
-                          child: Text('Save'),
-                          color: Colors.blue,
+                          child: Text('Save', style: GoogleFonts.montserrat(fontSize: 18)),
+                          color: Colors.blueAccent,
                           onPressed: () {
                             FirebaseFirestore.instance.collection('Users').doc(userId)
                                 .update({

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/screens/other/studentHome.dart';
 
 String userId = '';
@@ -24,7 +25,7 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Student Profile'),
+        title: Text('Edit Student Profile', style: GoogleFonts.montserrat(fontSize: 18),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -42,9 +43,9 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                   children: [
                     SizedBox(height: 30,),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Current Display Name: '),
-                        Text(displayName),
+                        Text('Display Name: ', style: GoogleFonts.montserrat(fontSize: 18),),
                       ],
                     ),
                     SizedBox(height: 20,),
@@ -56,9 +57,9 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                     ),
                     SizedBox(height: 30,),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Current Phone Number: '),
-                        Text(phoneNumber),
+                        Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
                       ],
                     ),
                     SizedBox(height: 20,),
@@ -73,8 +74,8 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
-                          child: Text('Save'),
-                          color: Colors.blue,
+                          child: Text('Save', style: GoogleFonts.montserrat(fontSize: 18)),
+                          color: Colors.blueAccent,
                           onPressed: () {
                             FirebaseFirestore.instance.collection('Users').doc(userId)
                                 .update({

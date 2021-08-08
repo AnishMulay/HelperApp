@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -27,7 +28,7 @@ class _TaskNotifyState extends State<TaskNotify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notify Volunteers'),
+        title: Text('Notify Volunteers', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
@@ -38,7 +39,7 @@ class _TaskNotifyState extends State<TaskNotify> {
             FloatingActionButton(
                 heroTag: 'editButton',
                 child: Icon(Icons.edit),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.blueAccent,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -50,7 +51,7 @@ class _TaskNotifyState extends State<TaskNotify> {
             FloatingActionButton(
                 heroTag: 'deleteButton',
                 child: Icon(Icons.delete),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.redAccent,
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).delete().then(
                           (value) {
@@ -85,28 +86,28 @@ class _TaskNotifyState extends State<TaskNotify> {
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Task ID: '),
+                            Text('Task ID: ', style: GoogleFonts.montserrat(fontSize: 18)),
                             Text(widget.taskId),
                           ],
                         ),
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Exam Title: '),
+                            Text('Exam Title: ', style: GoogleFonts.montserrat(fontSize: 18)),
                             Text(examTitle),
                           ],
                         ),
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Exam Address: '),
+                            Text('Exam Address: ', style: GoogleFonts.montserrat(fontSize: 18)),
                             Text(address),
                           ],
                         ),
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Exam Date and Time: '),
+                            Text('Exam Date and Time: ', style: GoogleFonts.montserrat(fontSize: 18)),
                             Text(examDateTime),
                           ],
                         ),
@@ -115,8 +116,8 @@ class _TaskNotifyState extends State<TaskNotify> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             MaterialButton(
-                                color: Colors.blue,
-                                child: Text('Send Email'),
+                                color: Colors.blueAccent,
+                                child: Text('Send Email', style: GoogleFonts.montserrat(fontSize: 18)),
                                 onPressed: () {
                                   sendAllEmails();
                                 }),

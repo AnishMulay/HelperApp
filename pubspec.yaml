@@ -34,10 +34,17 @@ dependencies:
   mailer: ^3.3.0
   shared_preferences: ^2.0.6
   provider: ^5.0.0
+  google_fonts: ^1.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.9.1"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

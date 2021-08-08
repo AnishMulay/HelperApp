@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 String userId = '';
 String displayName = '';
@@ -20,7 +21,7 @@ class _ViewVolunteerState extends State<ViewVolunteer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteer Details'),
+        title: Text('Volunteer Details', style: GoogleFonts.montserrat(fontSize: 18)),
       ),
       body: FutureBuilder(
         future: getUserData(widget.volunteerId),
@@ -38,24 +39,24 @@ class _ViewVolunteerState extends State<ViewVolunteer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Display Name: '),
-                      Text(displayName),
+                      Text('Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text(displayName, style: GoogleFonts.montserrat(fontSize: 18)),
                     ],
                   ),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Email: '),
-                      Text(email),
+                      Text('Email: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text(email, style: GoogleFonts.montserrat(fontSize: 18)),
                     ],
                   ),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Phone Number: '),
-                      Text(phoneNumber),
+                      Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text(phoneNumber, style: GoogleFonts.montserrat(fontSize: 18)),
                     ],
                   ),
                 ],

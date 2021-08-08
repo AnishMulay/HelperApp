@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/editStudentProfile.dart';
@@ -28,7 +29,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Profile'),
+        title: Text('Student Profile', style: GoogleFonts.montserrat(fontSize: 18)),
         actions: [
           IconButton(
               onPressed: () {
@@ -67,7 +68,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentCompletedPage()));
                 },
-                icon: Icon(Icons.beenhere, color: Colors.green,)),
+                icon: Icon(Icons.beenhere, color: Colors.greenAccent,)),
           ],
         ),
       ),
@@ -80,7 +81,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             FloatingActionButton(
                 heroTag: 'editProfileButton',
                 child: Icon(Icons.edit),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.blueAccent,
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditStudentProfile()));
                 }),
@@ -88,7 +89,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             FloatingActionButton(
                 heroTag: 'deleteProfileButton',
                 child: Icon(Icons.delete),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.redAccent,
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).delete().then(
                           (value) => {
@@ -130,29 +131,22 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('User ID: '),
-                              Text(userId),
+                              Text('Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(displayName, style: GoogleFonts.montserrat(fontSize: 18)),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Display Name: '),
-                              Text(displayName),
+                              Text('Email: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(email, style: GoogleFonts.montserrat(fontSize: 18)),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Email: '),
-                              Text(email),
-                            ],
-                          ),
-                          SizedBox(height: 30,),
-                          Row(
-                            children: [
-                              Text('Phone Number: '),
-                              Text(phoneNumber),
+                              Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(phoneNumber, style: GoogleFonts.montserrat(fontSize: 18)),
                             ],
                           ),
                         ],
