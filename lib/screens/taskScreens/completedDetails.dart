@@ -1,6 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 
 String examTitle = '';
 String address = '';
@@ -20,7 +26,7 @@ class _CompletedTaskDetailsState extends State<CompletedTaskDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Task Details', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Completed Task Details', style: normal),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -40,33 +46,23 @@ class _CompletedTaskDetailsState extends State<CompletedTaskDetails> {
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Task ID: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(widget.taskId),
+                          Text('Exam Title: '+examTitle, style: normal),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Title: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(examTitle),
+                          Text('Exam Address: '+address, style: normal),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Address: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(address),
+                          Text('Exam Date and Time: '+examDateTime, style: normal),
                         ],
                       ),
                       SizedBox(height: 30,),
-                      Row(
-                        children: [
-                          Text('Exam Date and Time: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(examDateTime),
-                        ],
-                      ),
-                      SizedBox(height: 30,),
-                      Text('Who has Completed', style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text('Who has Completed', style: normal),
                       SizedBox(height: 10,),
                       Text(volunteerId),
                     ],
@@ -85,10 +81,10 @@ class _CompletedTaskDetailsState extends State<CompletedTaskDetails> {
         .doc(widget.taskId)
         .get()
         .then((ds) {
-      examTitle = ds.data()['examTitle'];
-      address = ds.data()['address'];
-      volunteerId = ds.data()['volunteer'];
-      examDateTime = ds.data()['examDateTime'];
+      examTitle = ds.data()!['examTitle'];
+      address = ds.data()!['address'];
+      volunteerId = ds.data()!['volunteer'];
+      examDateTime = ds.data()!['examDateTime'];
     });
   }
 }

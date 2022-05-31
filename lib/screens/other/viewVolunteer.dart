@@ -2,6 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 
 String userId = '';
 String displayName = '';
@@ -21,7 +28,7 @@ class _ViewVolunteerState extends State<ViewVolunteer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteer Details', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Volunteer Details', style: normal),
       ),
       body: FutureBuilder(
         future: getUserData(widget.volunteerId),
@@ -39,24 +46,24 @@ class _ViewVolunteerState extends State<ViewVolunteer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                      Text(displayName, style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text('Name: ', style: normal),
+                      Text(displayName, style: normal),
                     ],
                   ),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Email: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                      Text(email, style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text('Email: ', style: normal),
+                      Text(email, style: normal),
                     ],
                   ),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                      Text(phoneNumber, style: GoogleFonts.montserrat(fontSize: 18)),
+                      Text('Phone Number: ', style: normal),
+                      Text(phoneNumber, style: normal),
                     ],
                   ),
                 ],
@@ -73,9 +80,9 @@ class _ViewVolunteerState extends State<ViewVolunteer> {
         .doc(userId)
         .get()
         .then((ds) {
-      displayName = ds.data()['displayName'];
-      email = ds.data()['email'];
-      phoneNumber = ds.data()['phoneNumber'];
+      displayName = ds.data()!['displayName'];
+      email = ds.data()!['email'];
+      phoneNumber = ds.data()!['phoneNumber'];
     });
   }
 }

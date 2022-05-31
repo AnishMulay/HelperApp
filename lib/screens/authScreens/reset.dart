@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 
 import 'login.dart';
 
@@ -20,7 +24,7 @@ class _ResetPageState extends State<ResetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reset', style: GoogleFonts.montserrat(fontSize: 18),),
+        title: Text('Reset', style: normal,),
       ),
       body: isLoading == false ? Padding(
         padding: const EdgeInsets.all(8.0),
@@ -29,7 +33,7 @@ class _ResetPageState extends State<ResetPage> {
             TextFormField(
               controller: _email,
               decoration: InputDecoration(
-                  hintStyle: GoogleFonts.montserrat(fontSize: 18),
+                  hintStyle: normal,
                   hintText: 'email'
               ),
             ),
@@ -55,13 +59,13 @@ class _ResetPageState extends State<ResetPage> {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
                     }
                   });
-                }, child: Text('Reset Password', style: GoogleFonts.montserrat(fontSize: 18),)),
+                }, child: Text('Reset Password', style: normal,)),
             SizedBox(height: 20,),
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
               },
-              child: Text('Already have an account ?', style: GoogleFonts.montserrat(fontSize: 18),),
+              child: Text('Already have an account ?', style: normal,),
             ),
             const SizedBox(height: 20,),
           ],

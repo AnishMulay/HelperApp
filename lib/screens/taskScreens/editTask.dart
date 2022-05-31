@@ -1,6 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:intl/intl.dart';
 
@@ -29,7 +39,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Task', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Edit Task', style: normal),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -48,15 +58,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                     SizedBox(height: 15,),
                     Row(
                       children: [
-                        Text('Task ID: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                        Text(widget.taskId),
-                      ],
-                    ),
-                    SizedBox(height: 15,),
-                    Row(
-                      children: [
-                        Text('Current Exam Title: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                        Text(examTitle),
+                        Text('Current Exam Title: '+examTitle, style: normal),
                       ],
                     ),
                     SizedBox(height: 15,),
@@ -69,8 +71,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                     SizedBox(height: 15,),
                     Row(
                       children: [
-                        Text('Current Exam Address: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                        Text(address),
+                        Text('Current Exam Address: '+address, style: normal),
                       ],
                     ),
                     SizedBox(height: 15,),
@@ -82,21 +83,21 @@ class _EditTaskPageState extends State<EditTaskPage> {
                     ),
                     SizedBox(height: 15,),
                     ListTile(
-                      title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}', style: GoogleFonts.montserrat(fontSize: 18)),
-                      trailing: Text('Set Date', style: GoogleFonts.montserrat(fontSize: 18)),
+                      title: Text('Date: ${pickedDate.year}, ${pickedDate.month}, ${pickedDate.day}', style: normal),
+                      trailing: Text('Set Date', style: normal),
                       onTap: pickDateDialogue,
                     ),
                     const SizedBox(height: 10,),
                     ListTile(
-                      title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}', style: GoogleFonts.montserrat(fontSize: 18)),
-                      trailing: Text('Set Time', style: GoogleFonts.montserrat(fontSize: 18)),
+                      title: Text('Time: ${pickedTime.hour}: ${pickedTime.minute}', style: normal),
+                      trailing: Text('Set Time', style: normal),
                       onTap: pickTimeDialogue,
                     ),
                     const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Is the exam online ', style: GoogleFonts.montserrat(fontSize: 18)),
+                        Text('Is the exam online ', style: normal),
                         SizedBox(width: 10,),
                         Switch(
                           value: isOnline,
@@ -116,7 +117,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
-                          child: Text('Save', style: GoogleFonts.montserrat(fontSize: 18)),
+                          child: Text('Save', style: normal),
                           color: Colors.blueAccent,
                           onPressed: () {
                             DateTime examDateTime = DateTime(pickedDate.year, pickedDate.month, pickedDate.day, pickedTime.hour, pickedTime.minute);
@@ -147,11 +148,11 @@ class _EditTaskPageState extends State<EditTaskPage> {
         .doc(widget.taskId)
         .get()
         .then((ds) {
-      examTitle = ds.data()['examTitle'];
-      address = ds.data()['address'];
-      isSubscribed = ds.data()['isSubscribed'];
-      volunteerId = ds.data()['volunteer'];
-      isOnline = ds.data()['isOnline'];
+      examTitle = ds.data()!['examTitle'];
+      address = ds.data()!['address'];
+      isSubscribed = ds.data()!['isSubscribed'];
+      volunteerId = ds.data()!['volunteer'];
+      isOnline = ds.data()!['isOnline'];
     });
 
     _newExamTitle = TextEditingController(text:examTitle);

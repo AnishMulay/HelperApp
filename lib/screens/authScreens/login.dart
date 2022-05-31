@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/authScreens/register.dart';
 import 'package:helper/screens/authScreens/reset.dart';
 import 'package:helper/screens/other/splash.dart';
@@ -22,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login', style: GoogleFonts.montserrat(fontSize: 18),),
+        title: Text('Login', style: normal,),
       ),
       body: isLoading == false ? Padding(
         padding: const EdgeInsets.all(30.0),
@@ -31,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             TextFormField(
               controller: _email,
               decoration: InputDecoration(
-                  hintStyle: GoogleFonts.montserrat(fontSize: 18),
+                  hintStyle: normal,
                   hintText: 'email',
                   border: OutlineInputBorder()
               ),
@@ -40,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             TextFormField(
               controller: _password,
               decoration: InputDecoration(
-                  hintStyle: GoogleFonts.montserrat(fontSize: 18),
+                  hintStyle: normal,
                   hintText: 'Password',
                   border: OutlineInputBorder()
               ),
@@ -74,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     }
                   });
-                }, child: Text('Login', style: GoogleFonts.montserrat(fontSize: 18))),
+                }, child: Text('Login', style: normal)),
             SizedBox(height: 20,),
             GestureDetector(
               onTap: () {
@@ -82,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                   "Don't have an account ?",
-                  style: GoogleFonts.montserrat(fontSize: 18)
+                  style: normal
               ),
             ),
             const SizedBox(height: 20,),
@@ -92,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                   'Forgot Password ?',
-                  style: GoogleFonts.montserrat(fontSize: 18)
+                  style: normal
               ),
             ),
           ],

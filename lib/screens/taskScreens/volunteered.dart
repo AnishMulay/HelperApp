@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/volunteerCompleted.dart';
 import 'package:helper/screens/other/volunteerProfile.dart';
@@ -23,7 +26,7 @@ class _VolunteeredState extends State<Volunteered> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteered tasks', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Volunteered tasks', style: normal),
         actions: [
           IconButton(
               onPressed: () {
@@ -70,7 +73,7 @@ class _VolunteeredState extends State<Volunteered> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Tasks')
             .where('isSubscribed', isEqualTo: true)
-            .where('volunteer', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+            .where('volunteer', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .where('isCompleted', isEqualTo: false)
             .snapshots(),
         builder: (context, AsyncSnapshot snapshot){
@@ -84,7 +87,7 @@ class _VolunteeredState extends State<Volunteered> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SubscribeTaskScreen(userId: FirebaseAuth.instance.currentUser.uid, taskId: ds.id,))
+                                builder: (context) => SubscribeTaskScreen(userId: FirebaseAuth.instance.currentUser!.uid, taskId: ds.id,))
                         );
                       },
                       child: Card(
@@ -93,9 +96,9 @@ class _VolunteeredState extends State<Volunteered> {
                           child: Column(
                             children: [
                               SizedBox(height: 20,),
-                              Text(ds['examTitle'], style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(ds['examTitle'], style: normal),
                               SizedBox(height: 20,),
-                              Text(ds['address'], style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(ds['address'], style: normal),
                               SizedBox(height: 20,),
                             ],
                           ),

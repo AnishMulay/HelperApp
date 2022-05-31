@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
 import 'package:helper/screens/other/volunteerProfile.dart';
@@ -22,7 +25,7 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Tasks', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Completed Tasks', style: normal),
         actions: [
           IconButton(
               onPressed: () {
@@ -68,7 +71,7 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Tasks')
-            .where('volunteer', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+            .where('volunteer', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .where('isCompleted', isEqualTo: true)
             .snapshots(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -82,7 +85,7 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CompletedTaskDetails(userId: auth.currentUser.uid, taskId: ds.id,))
+                            builder: (context) => CompletedTaskDetails(userId: auth.currentUser!.uid, taskId: ds.id,))
                     );
                   },
                   child: Card(
@@ -91,9 +94,9 @@ class _VolunteerCompletedPageState extends State<VolunteerCompletedPage> {
                       child: Column(
                         children: [
                           SizedBox(height: 20,),
-                          Text(ds['examTitle'], style: GoogleFonts.montserrat(fontSize: 18)),
+                          Text(ds['examTitle'], style: normal),
                           SizedBox(height: 20,),
-                          Text(ds['address'], style: GoogleFonts.montserrat(fontSize: 18)),
+                          Text(ds['address'], style: normal),
                           SizedBox(height: 20,),
                         ],
                       ),

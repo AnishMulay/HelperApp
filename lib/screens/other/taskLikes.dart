@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/other/viewVolunteer.dart';
 
 class TaskLikes extends StatefulWidget {
@@ -18,11 +20,11 @@ class _TaskLikesState extends State<TaskLikes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Who has liked this task', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Who has liked this task', style: normal),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Likes')
-            .where('studentId', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+            .where('studentId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .snapshots(),
         builder: (context, AsyncSnapshot snapshot){
           return snapshot.hasData ?
@@ -41,8 +43,8 @@ class _TaskLikesState extends State<TaskLikes> {
                             children: [
                               Row(
                                 children: [
-                                  Text('VolunteerId: ',style: GoogleFonts.montserrat(fontSize: 18)),
-                                  Text(ds['volunteerId'], style: GoogleFonts.montserrat(fontSize: 18))
+                                  Text('VolunteerId: ',style: normal),
+                                  Text(ds['volunteerId'].substring(1, 10)+'...    '+'click here', style: normal)
                                 ],
                               )
                             ],

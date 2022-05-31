@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/main.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/other/studentHome.dart';
 import 'package:helper/screens/other/volunteerCompleted.dart';
 import 'package:helper/screens/other/volunteerProfile.dart';
@@ -31,7 +34,7 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteer Home', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Volunteer Home', style: normal),
         actions: [
           IconButton(
               onPressed: () {
@@ -91,7 +94,7 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SubscribeTaskScreen(userId: auth.currentUser.uid, taskId: ds.id,))
+                                builder: (context) => SubscribeTaskScreen(userId: auth.currentUser!.uid, taskId: ds.id,))
                         );
                       },
                       child: Card(
@@ -100,9 +103,9 @@ class _VolunteerHomePageState extends State<VolunteerHomePage> {
                           child: Column(
                             children: [
                               SizedBox(height: 20,),
-                              Text(ds['examTitle'], style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(ds['examTitle'], style: normal),
                               SizedBox(height: 20,),
-                              Text(ds['address'], style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(ds['address'], style: normal),
                               SizedBox(height: 20,),
                             ],
                           ),

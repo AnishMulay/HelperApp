@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/other/volunteerHome.dart';
 
 String userId = '';
@@ -25,7 +29,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Volunteer Profile', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Edit Volunteer Profile', style: normal),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -44,7 +48,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
                     SizedBox(height: 30,),
                     Row(
                       children: [
-                        Text('Current Display Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                        Text('Current Display Name: ', style: normal),
                         Text(displayName),
                       ],
                     ),
@@ -58,7 +62,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
                     SizedBox(height: 30,),
                     Row(
                       children: [
-                        Text('Current Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                        Text('Current Phone Number: ', style: normal),
                         Text(phoneNumber),
                       ],
                     ),
@@ -74,7 +78,7 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
-                          child: Text('Save', style: GoogleFonts.montserrat(fontSize: 18)),
+                          child: Text('Save', style: normal),
                           color: Colors.blueAccent,
                           onPressed: () {
                             FirebaseFirestore.instance.collection('Users').doc(userId)
@@ -98,14 +102,14 @@ class _EditVolunteerProfileState extends State<EditVolunteerProfile> {
   }
 
   getUserData() async {
-    userId = FirebaseAuth.instance.currentUser.uid;
+    userId = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance.collection('Users')
         .doc(userId)
         .get()
         .then((ds) {
-      displayName = ds.data()['displayName'];
-      email = ds.data()['email'];
-      phoneNumber = ds.data()['phoneNumber'];
+      displayName = ds.data()!['displayName'];
+      email = ds.data()!['email'];
+      phoneNumber = ds.data()!['phoneNumber'];
     });
 
     _newDisplayName = TextEditingController(text: displayName);

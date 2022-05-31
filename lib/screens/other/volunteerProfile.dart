@@ -3,6 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/editVolunteerProfile.dart';
 import 'package:helper/screens/other/splash.dart';
@@ -30,7 +34,7 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteer Profile Page', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Volunteer Profile Page', style: normal),
         actions: [
           IconButton(
               onPressed: () {
@@ -93,9 +97,9 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
                 child: Icon(Icons.delete),
                 backgroundColor: Colors.redAccent,
                 onPressed: () {
-                  FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).delete().then(
+                  FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).delete().then(
                           (value) => {
-                        FirebaseAuth.instance.currentUser.delete().then(
+                        FirebaseAuth.instance.currentUser!.delete().then(
                                 (value) {
                               deleteAccountDialogue(context);
                               Future.delayed(Duration(seconds: 2), () {
@@ -133,22 +137,19 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                              Text(displayName, style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text('Name: '+displayName, style: normal),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Email: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                              Text(email, style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text('Email: '+email, style: normal),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                              Text(phoneNumber, style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text('Phone Number: '+phoneNumber, style: normal),
                             ],
                           ),
                         ],
@@ -165,14 +166,14 @@ class _VolunteerProfilePageState extends State<VolunteerProfilePage> {
   }
 
   getUserData() async {
-    userId = FirebaseAuth.instance.currentUser.uid;
+    userId = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance.collection('Users')
         .doc(userId)
         .get()
         .then((ds) {
-      displayName = ds.data()['displayName'];
-      email = ds.data()['email'];
-      phoneNumber = ds.data()['phoneNumber'];
+      displayName = ds.data()!['displayName'];
+      email = ds.data()!['email'];
+      phoneNumber = ds.data()!['phoneNumber'];
     });
   }
 

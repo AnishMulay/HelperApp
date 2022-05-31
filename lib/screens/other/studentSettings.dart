@@ -22,7 +22,7 @@ class _StudentSettingsPageState extends State<StudentSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Settings', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Student Settings', style: normal),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +30,7 @@ class _StudentSettingsPageState extends State<StudentSettingsPage> {
           Consumer<ThemeNotifier>(
             builder: (context, notifier, child) {
               return SwitchListTile(
-                  title: Text('Alternate Theme', style: GoogleFonts.montserrat(fontSize: 18)),
+                  title: Text('Alternate Theme', style: normal),
                   value: notifier.darkTheme,
                   onChanged: (value) {
                     notifier.toggleTheme();

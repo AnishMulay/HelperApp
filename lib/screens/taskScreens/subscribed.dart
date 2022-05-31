@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/studentCompleted.dart';
 import 'package:helper/screens/other/studentHome.dart';
@@ -24,19 +27,21 @@ class _SubscribedState extends State<Subscribed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Subscribed Tasks', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Student Home', style: normal),
         actions: [
-          IconButton(
+          MaterialButton(
+              child: Text('Settings', style: TextStyle(color: Colors.white),),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
-              },
-              icon: Icon(Icons.settings)),
-          IconButton(onPressed: () {
-            AuthClass().signOut();
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
-          }, icon: Icon(Icons.exit_to_app))
+              }),
+          MaterialButton(
+              child: Text('Logout', style: TextStyle(color: Colors.white),),
+              onPressed: () {
+                AuthClass().signOut();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+              })
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -44,33 +49,33 @@ class _SubscribedState extends State<Subscribed> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
+            MaterialButton(
+                child: Text('Home'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
-                },
-                icon: Icon(Icons.home)),
-            IconButton(
+                }),
+            MaterialButton(
+                child: Text('Subscribed'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Subscribed()));
-                },
-                icon: Icon(Icons.beenhere_outlined)),
-            IconButton(
+                }),
+            MaterialButton(
+                child: Text('Profile'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentProfilePage()));
-                },
-                icon: Icon(Icons.person)),
-            IconButton(
+                }),
+            MaterialButton(
+                child: Text('Completed'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentCompletedPage()));
-                },
-                icon: Icon(Icons.beenhere, color: Colors.greenAccent,)),
+                }),
           ],
         ),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Tasks')
             .where('isSubscribed', isEqualTo: true)
-            .where('studentUserId', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+            .where('studentUserId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .where('isCompleted', isEqualTo: false).snapshots(),
         builder: (context, AsyncSnapshot snapshot){
           return snapshot.hasData ?
@@ -81,7 +86,7 @@ class _SubscribedState extends State<Subscribed> {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetails(
-                            userId: FirebaseAuth.instance.currentUser.uid,
+                            userId: FirebaseAuth.instance.currentUser!.uid,
                             taskId: ds.id)));
                       },
                       child: Card(
@@ -90,9 +95,9 @@ class _SubscribedState extends State<Subscribed> {
                           child: Column(
                             children: [
                               SizedBox(height: 20,),
-                              Text(ds['examTitle'], style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(ds['examTitle'], style: normal),
                               SizedBox(height: 20,),
-                              Text(ds['address'], style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text(ds['address'], style: normal),
                               SizedBox(height: 20,),
                             ],
                           ),

@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/other/studentHome.dart';
 
 String userId = '';
@@ -25,7 +29,7 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Student Profile', style: GoogleFonts.montserrat(fontSize: 18),),
+        title: Text('Edit Student Profile', style: normal,),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -45,7 +49,7 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Display Name: ', style: GoogleFonts.montserrat(fontSize: 18),),
+                        Text('Display Name: ', style: normal,),
                       ],
                     ),
                     SizedBox(height: 20,),
@@ -59,7 +63,7 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
+                        Text('Phone Number: ', style: normal),
                       ],
                     ),
                     SizedBox(height: 20,),
@@ -74,7 +78,7 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MaterialButton(
-                          child: Text('Save', style: GoogleFonts.montserrat(fontSize: 18)),
+                          child: Text('Save', style: normal),
                           color: Colors.blueAccent,
                           onPressed: () {
                             FirebaseFirestore.instance.collection('Users').doc(userId)
@@ -98,14 +102,14 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
   }
 
   getUserData() async {
-    userId = FirebaseAuth.instance.currentUser.uid;
+    userId = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance.collection('Users')
         .doc(userId)
         .get()
         .then((ds) {
-      displayName = ds.data()['displayName'];
-      email = ds.data()['email'];
-      phoneNumber = ds.data()['phoneNumber'];
+      displayName = ds.data()!['displayName'];
+      email = ds.data()!['email'];
+      phoneNumber = ds.data()!['phoneNumber'];
     });
 
     _newDisplayName = TextEditingController(text: displayName);

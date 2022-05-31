@@ -4,7 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/other/editStudentProfile.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 String examTitle = '';
 String address = '';
@@ -12,6 +21,9 @@ String examDateTime = '';
 String studentId = '';
 bool isSubscribed = false;
 bool isLiked = false;
+String displayName = '';
+String email = '';
+String phoneNumber = '';
 
 class SubscribeTaskScreen extends StatefulWidget {
   final String userId, taskId;
@@ -27,13 +39,13 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Subscribe to task', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Subscribe to task', style: normal),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Center(
           child: FutureBuilder(
-            future: getTaskData(),
+            future: getTaskAndUserData(),
             builder: (context, snapshot) {
               if(snapshot.connectionState != ConnectionState.done){
                 return Center(
@@ -48,36 +60,26 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Task ID:  ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(widget.taskId),
+                          Text('Exam Title: '+examTitle, style: normal),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Title:  ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(examTitle),
+                          Text('Exam Address: '+address, style: normal),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         children: [
-                          Text('Exam Address:  ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(address),
-                        ],
-                      ),
-                      SizedBox(height: 30,),
-                      Row(
-                        children: [
-                          Text('Exam Date and Time:  ', style: GoogleFonts.montserrat(fontSize: 18)),
-                          Text(examDateTime),
+                          Text('Exam Date and Time: '+examDateTime, style: normal),
                         ],
                       ),
                       SizedBox(height: 30,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Subscribe to this task ?', style: GoogleFonts.montserrat(fontSize: 18)),
+                          Text('Subscribe to this task ?', style: normal),
                           SizedBox(width: 10,),
                           Switch(
                               value: isSubscribed,
@@ -88,7 +90,8 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                                       {'isSubscribed': isSubscribed});
                                   if(value == true){
                                     FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).update(
-                                        {'volunteer': FirebaseAuth.instance.currentUser.uid});
+                                        {'volunteer': FirebaseAuth.instance.currentUser!.uid});
+                                    sendSubscribeEmail(email, examTitle, displayName, phoneNumber);
                                   }
                                   else{
                                     FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).update(
@@ -102,7 +105,7 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
                       Center(
                         child: MaterialButton(
                           color: Colors.blueAccent,
-                            child: Text('Add to favorites', style: GoogleFonts.montserrat(fontSize: 18)),
+                            child: Text('Add to favorites', style: normal),
                             onPressed: () async {
                               QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Likes')
                                   .where('volunteerId', isEqualTo: widget.userId)
@@ -134,19 +137,40 @@ class _SubscribeTaskScreenState extends State<SubscribeTaskScreen> {
     );
   }
 
-  getTaskData() async {
+  getTaskAndUserData() async {
     await FirebaseFirestore.instance.collection('Tasks')
         .doc(widget.taskId)
         .get()
         .then((ds) {
-          examTitle = ds.data()['examTitle'];
-          address = ds.data()['address'];
-          isSubscribed = ds.data()['isSubscribed'];
-          examDateTime = ds.data()['examDateTime'];
-          studentId = ds.data()['studentUserId'];
+          examTitle = ds.data()!['examTitle'];
+          address = ds.data()!['address'];
+          isSubscribed = ds.data()!['isSubscribed'];
+          examDateTime = ds.data()!['examDateTime'];
+          studentId = ds.data()!['studentUserId'];
     });
 
+    await FirebaseFirestore.instance.collection('Users')
+        .doc(widget.userId)
+        .get()
+        .then((ds) {
+      displayName = ds.data()!['displayName'];
+      email = ds.data()!['email'];
+      phoneNumber = ds.data()!['phoneNumber'];
+    });
   }
 
+  sendSubscribeEmail(String rEmail, String title, String name, String phone) async {
+    String senderEmail = 'Jagritischoolclass10@gmail.com';
+    String senderPassword = 'Jagriti@123';
+
+    final smtpServer = gmail(senderEmail, senderPassword);
+    final message = Message()
+      ..from = Address(senderEmail, 'Jagriti')
+      ..recipients.add(Address(rEmail))
+      ..subject = 'Task Notification Email'
+      ..text = 'The task' +title+ ' has been subscribed to by the volunteer ' +name+ ' , their phone number is' + phone;
+
+    await send(message, smtpServer);
+  }
 }
 

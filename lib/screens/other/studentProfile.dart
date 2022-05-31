@@ -4,6 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/providers/auth_provider.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:helper/screens/authScreens/login.dart';
 import 'package:helper/screens/other/editStudentProfile.dart';
 import 'package:helper/screens/other/splash.dart';
@@ -29,19 +33,21 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Profile', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Student Profile', style: normal),
         actions: [
-          IconButton(
+          MaterialButton(
+              child: Text('Settings', style: TextStyle(color: Colors.white),),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => StudentSettingsPage()));
-              },
-              icon: Icon(Icons.settings)),
-          IconButton(onPressed: () {
-            AuthClass().signOut();
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
-          }, icon: Icon(Icons.exit_to_app))
+              }),
+          MaterialButton(
+              child: Text('Logout', style: TextStyle(color: Colors.white),),
+              onPressed: () {
+                AuthClass().signOut();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+              })
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -49,26 +55,26 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
+            MaterialButton(
+                child: Text('Home'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentHomePage()));
-                },
-                icon: Icon(Icons.home)),
-            IconButton(
+                }),
+            MaterialButton(
+                child: Text('Subscribed'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Subscribed()));
-                },
-                icon: Icon(Icons.beenhere_outlined)),
-            IconButton(
+                }),
+            MaterialButton(
+                child: Text('Profile'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentProfilePage()));
-                },
-                icon: Icon(Icons.person)),
-            IconButton(
+                }),
+            MaterialButton(
+                child: Text('Completed'),
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentCompletedPage()));
-                },
-                icon: Icon(Icons.beenhere, color: Colors.greenAccent,)),
+                }),
           ],
         ),
       ),
@@ -80,7 +86,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           children: [
             FloatingActionButton(
                 heroTag: 'editProfileButton',
-                child: Icon(Icons.edit),
+                child: Text('Edit'),
                 backgroundColor: Colors.blueAccent,
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditStudentProfile()));
@@ -88,12 +94,12 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             SizedBox(width: 10,),
             FloatingActionButton(
                 heroTag: 'deleteProfileButton',
-                child: Icon(Icons.delete),
+                child: Text('Delete'),
                 backgroundColor: Colors.redAccent,
                 onPressed: () {
-                  FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser.uid).delete().then(
+                  FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).delete().then(
                           (value) => {
-                            FirebaseAuth.instance.currentUser.delete().then(
+                            FirebaseAuth.instance.currentUser!.delete().then(
                                     (value) {
                                       deleteAccountDialogue(context);
                                       Future.delayed(Duration(seconds: 2), () {
@@ -131,22 +137,19 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Name: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                              Text(displayName, style: GoogleFonts.montserrat(fontSize: 18)),
+                              Expanded(child: Text('Name: '+displayName, style: normal)),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Email: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                              Text(email, style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text('Email: '+email, style: normal),
                             ],
                           ),
                           SizedBox(height: 30,),
                           Row(
                             children: [
-                              Text('Phone Number: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                              Text(phoneNumber, style: GoogleFonts.montserrat(fontSize: 18)),
+                              Text('Phone Number: '+phoneNumber, style: normal),
                             ],
                           ),
                         ],
@@ -163,14 +166,14 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   }
 
   getUserData() async {
-    userId = FirebaseAuth.instance.currentUser.uid;
+    userId = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance.collection('Users')
     .doc(userId)
     .get()
     .then((ds) {
-      displayName = ds.data()['displayName'];
-      email = ds.data()['email'];
-      phoneNumber = ds.data()['phoneNumber'];
+      displayName = ds.data()!['displayName'];
+      email = ds.data()!['email'];
+      phoneNumber = ds.data()!['phoneNumber'];
     });
   }
 

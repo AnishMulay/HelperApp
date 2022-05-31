@@ -19,7 +19,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volunteer Settings', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Volunteer Settings', style: normal),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +27,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
           Consumer<ThemeNotifier>(
             builder: (context, notifier, child) {
               return SwitchListTile(
-                  title: Text('Alternate Theme', style: GoogleFonts.montserrat(fontSize: 18)),
+                  title: Text('Alternate Theme', style: normal),
                   value: notifier.darkTheme,
                   onChanged: (value) {
                     notifier.toggleTheme();

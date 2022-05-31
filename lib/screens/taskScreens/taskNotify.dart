@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helper/providers/themes.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -28,7 +29,7 @@ class _TaskNotifyState extends State<TaskNotify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notify Volunteers', style: GoogleFonts.montserrat(fontSize: 18)),
+        title: Text('Notify Volunteers', style: normal),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
@@ -38,19 +39,19 @@ class _TaskNotifyState extends State<TaskNotify> {
           children: [
             FloatingActionButton(
                 heroTag: 'editButton',
-                child: Icon(Icons.edit),
+                child: Text('Edit'),
                 backgroundColor: Colors.blueAccent,
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EditTaskPage(userId: FirebaseAuth.instance.currentUser.uid, taskId: widget.taskId,))
+                          builder: (context) => EditTaskPage(userId: FirebaseAuth.instance.currentUser!.uid, taskId: widget.taskId,))
                   );
                 }),
             SizedBox(width: 10,),
             FloatingActionButton(
                 heroTag: 'deleteButton',
-                child: Icon(Icons.delete),
+                child: Text('Delete'),
                 backgroundColor: Colors.redAccent,
                 onPressed: () {
                   FirebaseFirestore.instance.collection('Tasks').doc(widget.taskId).delete().then(
@@ -86,29 +87,19 @@ class _TaskNotifyState extends State<TaskNotify> {
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Task ID: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                            Text(widget.taskId),
+                            Text('Exam Title: '+examTitle, style: normal),
                           ],
                         ),
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Exam Title: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                            Text(examTitle),
+                            Text('Exam Address: '+address, style: normal),
                           ],
                         ),
                         SizedBox(height: 30,),
                         Row(
                           children: [
-                            Text('Exam Address: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                            Text(address),
-                          ],
-                        ),
-                        SizedBox(height: 30,),
-                        Row(
-                          children: [
-                            Text('Exam Date and Time: ', style: GoogleFonts.montserrat(fontSize: 18)),
-                            Text(examDateTime),
+                            Text('Exam Date and Time: '+examDateTime, style: normal),
                           ],
                         ),
                         SizedBox(height: 30,),
@@ -117,7 +108,7 @@ class _TaskNotifyState extends State<TaskNotify> {
                           children: [
                             MaterialButton(
                                 color: Colors.blueAccent,
-                                child: Text('Send Email', style: GoogleFonts.montserrat(fontSize: 18)),
+                                child: Text('Send Email', style: normal),
                                 onPressed: () {
                                   sendAllEmails();
                                 }),
@@ -140,17 +131,17 @@ class _TaskNotifyState extends State<TaskNotify> {
         .doc(widget.taskId)
         .get()
         .then((ds) {
-      examTitle = ds.data()['examTitle'];
-      address = ds.data()['address'];
-      isSubscribed = ds.data()['isSubscribed'];
-      volunteerId = ds.data()['volunteer'];
-      examDateTime = ds.data()['examDateTime'];
+      examTitle = ds.data()!['examTitle'];
+      address = ds.data()!['address'];
+      isSubscribed = ds.data()!['isSubscribed'];
+      volunteerId = ds.data()!['volunteer'];
+      examDateTime = ds.data()!['examDateTime'];
     });
   }
 
   sendEmail(String rEmail) async {
-    String senderEmail = 'anishm7030@gmail.com';
-    String senderPassword = 'Anish2000';
+    String senderEmail = 'Jagritischoolclass10@gmail.com';
+    String senderPassword = 'Jagriti@123';
 
     final smtpServer = gmail(senderEmail, senderPassword);
     final message = Message()
@@ -159,12 +150,20 @@ class _TaskNotifyState extends State<TaskNotify> {
       ..subject = 'Task Notification Email'
       ..text = 'A new task has been created by a student, please open the app for more details';
 
-    await send(message, smtpServer);
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      print(e.toString());
+    }
+
+    //await send(message, smtpServer);
   }
 
   sendAllEmails() async {
     QuerySnapshot qs = await FirebaseFirestore.instance.collection('Users').where('isStudent', isEqualTo: false).get();
-    var dataList = qs.docs.map((doc) => doc.data()['email']).toList();
+    var dataList = qs.docs.map((doc) => doc.get('email')).toList();
     for(int i=0; i<dataList.length; i++){
       try{
         sendEmail(dataList[i]);

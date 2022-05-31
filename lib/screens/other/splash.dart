@@ -61,9 +61,9 @@ getUserData() async {
         .doc(firebaseUser.uid)
         .get()
         .then((ds) {
-      email = ds.data()['displayName'];
-      phoneNumber = ds.data()['phoneNumber'];
-      isStudent = ds.data()['isStudent'];
+      email = ds.data()!['displayName'];
+      phoneNumber = ds.data()!['phoneNumber'];
+      isStudent = ds.data()!['isStudent'];
     });
   }
 }
